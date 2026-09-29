@@ -1,0 +1,146 @@
+[
+  {
+    "symbol": "BNBUSDT",
+    "period": "01/2018 a 12/2024",
+    "candles_count": 61246,
+    "performance": {
+      "trades": 47,
+      "wins": 19,
+      "win_rate_pct": 40.4,
+      "net_return_pct": 44.72
+    },
+    "status": "POSITIVO (Lucrativo)"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "period": "08/2020 a 12/2024",
+    "candles_count": 38470,
+    "performance": {
+      "trades": 21,
+      "wins": 6,
+      "win_rate_pct": 28.6,
+      "net_return_pct": 0.57
+    },
+    "status": "POSITIVO (Lucrativo)"
+  },
+  {
+    "symbol": "ADAUSDT",
+    "period": "04/2018 a 12/2024",
+    "candles_count": 58732,
+    "performance": {
+      "trades": 45,
+      "wins": 11,
+      "win_rate_pct": 24.4,
+      "net_return_pct": -10.33
+    },
+    "status": "DESFAVOR\u00c1VEL (Evitar)"
+  },
+  {
+    "symbol": "XRPUSDT",
+    "period": "05/2018 a 12/2024",
+    "candles_count": 58320,
+    "performance": {
+      "trades": 57,
+      "wins": 14,
+      "win_rate_pct": 24.6,
+      "net_return_pct": -20.07
+    },
+    "status": "DESFAVOR\u00c1VEL (Evitar)"
+  },
+  {
+    "symbol": "LINKUSDT",
+    "period": "01/2019 a 12/2024",
+    "candles_count": 52178,
+    "performance": {
+      "trades": 30,
+      "wins": 8,
+      "win_rate_pct": 26.7,
+      "net_return_pct": -12.09
+    },
+    "status": "DESFAVOR\u00c1VEL (Evitar)"
+  },
+  {
+    "symbol": "DOGEUSDT",
+    "period": "07/2019 a 12/2024",
+    "candles_count": 48112,
+    "performance": {
+      "trades": 30,
+      "wins": 5,
+      "win_rate_pct": 16.7,
+      "net_return_pct": -29.65
+    },
+    "status": "DESFAVOR\u00c1VEL (Evitar)"
+  },
+  {
+    "symbol": "AVAXUSDT",
+    "period": "09/2020 a 12/2024",
+    "candles_count": 37462,
+    "performance": {
+      "trades": 16,
+      "wins": 2,
+      "win_rate_pct": 12.5,
+      "net_return_pct": -18.74
+    },
+    "status": "DESFAVOR\u00c1VEL (Evitar)"
+  },
+  {
+    "symbol": "DOTUSDT",
+    "period": "08/2020 a 12/2024",
+    "candles_count": 38285,
+    "performance": {
+      "trades": 22,
+      "wins": 3,
+      "win_rate_pct": 13.6,
+      "net_return_pct": -23.22
+    },
+    "status": "DESFAVOR\u00c1VEL (Evitar)"
+  },
+  {
+    "symbol": "TRXUSDT",
+    "period": "06/2018 a 12/2019",
+    "candles_count": 13589,
+    "performance": {
+      "trades": 15,
+      "wins": 3,
+      "win_rate_pct": 20.0,
+      "net_return_pct": -11.86
+    },
+    "status": "DESFAVOR\u00c1VEL (Evitar)"
+  },
+  {
+    "symbol": "LTCUSDT",
+    "period": "01/2018 a 12/2019",
+    "candles_count": 17430,
+    "performance": {
+      "trades": 33,
+      "wins": 13,
+      "win_rate_pct": 39.4,
+      "net_return_pct": 26.44
+    },
+    "status": "POSITIVO (Lucrativo)"
+  },
+  {
+    "symbol": "XLMUSDT",
+    "period": "05/2018 a 12/2019",
+    "candles_count": 13855,
+    "performance": {
+      "trades": 24,
+      "wins": 6,
+      "win_rate_pct": 25.0,
+      "net_return_pct": 0.52
+    },
+    "status": "POSITIVO (Lucrativo)"
+  },
+  {
+    "symbol": "ETCUSDT",
+    "period": "06/2018 a 12/2019",
+    "candles_count": 13574,
+    "performance": {
+      "trades": 26,
+      "wins": 5,
+      "win_rate_pct": 19.2,
+      "net_return_pct": -13.38
+    },
+    "status": "DESFAVOR\u00c1VEL (Evitar)"
+  }
+]
