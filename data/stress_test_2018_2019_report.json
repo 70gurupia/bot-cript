@@ -1,0 +1,130 @@
+{
+  "title": "Validacao de Estresse Historico nos Anos de 2018 e 2019",
+  "tested_symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "BNBUSDT",
+    "XRPUSDT",
+    "ADAUSDT",
+    "LINKUSDT",
+    "DOGEUSDT"
+  ],
+  "year_evaluations": {
+    "2018 (Bear Market)": {
+      "donchian_btc": {
+        "trades": 140,
+        "wins": 49,
+        "win_rate_pct": 35.0,
+        "net_return_pct": 9.4
+      },
+      "lead_lag_eth": {
+        "trades": 36,
+        "wins": 18,
+        "win_rate_pct": 50.0,
+        "net_return_pct": 14.04
+      },
+      "entropy_by_symbol": {
+        "BTCUSDT": {
+          "trades": 70,
+          "wins": 13,
+          "win_rate_pct": 18.6,
+          "net_return_pct": -40.8
+        },
+        "ETHUSDT": {
+          "trades": 52,
+          "wins": 20,
+          "win_rate_pct": 38.5,
+          "net_return_pct": 27.6
+        },
+        "BNBUSDT": {
+          "trades": 35,
+          "wins": 11,
+          "win_rate_pct": 31.4,
+          "net_return_pct": 2.2
+        },
+        "XRPUSDT": {
+          "trades": 32,
+          "wins": 7,
+          "win_rate_pct": 21.9,
+          "net_return_pct": -19.4
+        },
+        "ADAUSDT": {
+          "trades": 32,
+          "wins": 9,
+          "win_rate_pct": 28.1,
+          "net_return_pct": -6.4
+        }
+      },
+      "bankroll_simulation": {
+        "initial_bankroll_brl": 500.0,
+        "final_bankroll_brl": 3627.5,
+        "vault_locked_brl": 1250.0,
+        "liquid_bankroll_brl": 2377.5
+      }
+    },
+    "2019 (Recupera\u00e7\u00e3o)": {
+      "donchian_btc": {
+        "trades": 114,
+        "wins": 40,
+        "win_rate_pct": 35.1,
+        "net_return_pct": 40.96
+      },
+      "lead_lag_eth": {
+        "trades": 24,
+        "wins": 12,
+        "win_rate_pct": 50.0,
+        "net_return_pct": 12.83
+      },
+      "entropy_by_symbol": {
+        "BTCUSDT": {
+          "trades": 58,
+          "wins": 11,
+          "win_rate_pct": 19.0,
+          "net_return_pct": -39.0
+        },
+        "ETHUSDT": {
+          "trades": 53,
+          "wins": 19,
+          "win_rate_pct": 35.8,
+          "net_return_pct": 22.2
+        },
+        "BNBUSDT": {
+          "trades": 29,
+          "wins": 8,
+          "win_rate_pct": 27.6,
+          "net_return_pct": -6.4
+        },
+        "XRPUSDT": {
+          "trades": 52,
+          "wins": 12,
+          "win_rate_pct": 23.1,
+          "net_return_pct": -23.0
+        },
+        "ADAUSDT": {
+          "trades": 33,
+          "wins": 10,
+          "win_rate_pct": 30.3,
+          "net_return_pct": -3.0
+        },
+        "LINKUSDT": {
+          "trades": 25,
+          "wins": 5,
+          "win_rate_pct": 20.0,
+          "net_return_pct": -22.6
+        },
+        "DOGEUSDT": {
+          "trades": 11,
+          "wins": 3,
+          "win_rate_pct": 27.3,
+          "net_return_pct": -4.8
+        }
+      },
+      "bankroll_simulation": {
+        "initial_bankroll_brl": 500.0,
+        "final_bankroll_brl": 2855.0,
+        "vault_locked_brl": 1250.0,
+        "liquid_bankroll_brl": 1605.0
+      }
+    }
+  }
+}
