@@ -1,0 +1,282 @@
+[
+  {
+    "year": 2018,
+    "desc": "Bear Market (-82%)",
+    "eth_baseline": {
+      "trades": 52,
+      "wins": 20,
+      "win_rate_pct": 38.5,
+      "net_return_pct": 27.6
+    },
+    "eth_trigonometric": {
+      "trades": 19,
+      "wins": 8,
+      "win_rate_pct": 42.1,
+      "net_return_pct": 14.8
+    },
+    "btc_baseline": {
+      "trades": 70,
+      "wins": 13,
+      "win_rate_pct": 18.6,
+      "net_return_pct": -40.8
+    },
+    "btc_trigonometric": {
+      "trades": 19,
+      "wins": 7,
+      "win_rate_pct": 36.8,
+      "net_return_pct": 9.0
+    },
+    "banca_baseline": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 1271.28,
+      "vault_locked_brl": 1250.0,
+      "liquid_bankroll_brl": 21.28
+    },
+    "banca_trigonometric": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 827.5,
+      "vault_locked_brl": 200.0,
+      "liquid_bankroll_brl": 627.5
+    }
+  },
+  {
+    "year": 2019,
+    "desc": "Recupera\u00e7\u00e3o / Acumula\u00e7\u00e3o",
+    "eth_baseline": {
+      "trades": 53,
+      "wins": 19,
+      "win_rate_pct": 35.8,
+      "net_return_pct": 22.2
+    },
+    "eth_trigonometric": {
+      "trades": 22,
+      "wins": 12,
+      "win_rate_pct": 54.5,
+      "net_return_pct": 35.0
+    },
+    "btc_baseline": {
+      "trades": 58,
+      "wins": 11,
+      "win_rate_pct": 19.0,
+      "net_return_pct": -39.0
+    },
+    "btc_trigonometric": {
+      "trades": 25,
+      "wins": 8,
+      "win_rate_pct": 32.0,
+      "net_return_pct": 10.2
+    },
+    "banca_baseline": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 1040.0,
+      "vault_locked_brl": 800.0,
+      "liquid_bankroll_brl": 240.0
+    },
+    "banca_trigonometric": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 1320.0,
+      "vault_locked_brl": 450.0,
+      "liquid_bankroll_brl": 870.0
+    }
+  },
+  {
+    "year": 2020,
+    "desc": "Covid Crash + Bull Run",
+    "eth_baseline": {
+      "trades": 43,
+      "wins": 16,
+      "win_rate_pct": 37.2,
+      "net_return_pct": 16.2
+    },
+    "eth_trigonometric": {
+      "trades": 7,
+      "wins": 4,
+      "win_rate_pct": 57.1,
+      "net_return_pct": 12.0
+    },
+    "btc_baseline": {
+      "trades": 60,
+      "wins": 18,
+      "win_rate_pct": 30.0,
+      "net_return_pct": -3.2
+    },
+    "btc_trigonometric": {
+      "trades": 16,
+      "wins": 5,
+      "win_rate_pct": 31.2,
+      "net_return_pct": -2.4
+    },
+    "banca_baseline": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 1015.0,
+      "vault_locked_brl": 800.0,
+      "liquid_bankroll_brl": 215.0
+    },
+    "banca_trigonometric": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 755.0,
+      "vault_locked_brl": 0.0,
+      "liquid_bankroll_brl": 755.0
+    }
+  },
+  {
+    "year": 2021,
+    "desc": "Mega Bull Market / Topo Duplo",
+    "eth_baseline": {
+      "trades": 24,
+      "wins": 5,
+      "win_rate_pct": 20.8,
+      "net_return_pct": -10.4
+    },
+    "eth_trigonometric": {
+      "trades": 7,
+      "wins": 2,
+      "win_rate_pct": 28.6,
+      "net_return_pct": -2.4
+    },
+    "btc_baseline": {
+      "trades": 37,
+      "wins": 6,
+      "win_rate_pct": 16.2,
+      "net_return_pct": -38.6
+    },
+    "btc_trigonometric": {
+      "trades": 9,
+      "wins": 3,
+      "win_rate_pct": 33.3,
+      "net_return_pct": 1.4
+    },
+    "banca_baseline": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 202.5,
+      "vault_locked_brl": 0.0,
+      "liquid_bankroll_brl": 202.5
+    },
+    "banca_trigonometric": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 457.5,
+      "vault_locked_brl": 0.0,
+      "liquid_bankroll_brl": 457.5
+    }
+  },
+  {
+    "year": 2022,
+    "desc": "Bear Market FTX/Luna (-65%)",
+    "eth_baseline": {
+      "trades": 53,
+      "wins": 17,
+      "win_rate_pct": 32.1,
+      "net_return_pct": 6.4
+    },
+    "eth_trigonometric": {
+      "trades": 14,
+      "wins": 5,
+      "win_rate_pct": 35.7,
+      "net_return_pct": 6.6
+    },
+    "btc_baseline": {
+      "trades": 60,
+      "wins": 17,
+      "win_rate_pct": 28.3,
+      "net_return_pct": -7.6
+    },
+    "btc_trigonometric": {
+      "trades": 18,
+      "wins": 6,
+      "win_rate_pct": 33.3,
+      "net_return_pct": 7.0
+    },
+    "banca_baseline": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 818.3,
+      "vault_locked_brl": 800.0,
+      "liquid_bankroll_brl": 18.3
+    },
+    "banca_trigonometric": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 602.5,
+      "vault_locked_brl": 0.0,
+      "liquid_bankroll_brl": 602.5
+    }
+  },
+  {
+    "year": 2023,
+    "desc": "Consolida\u00e7\u00e3o Pr\u00e9-ETF",
+    "eth_baseline": {
+      "trades": 71,
+      "wins": 23,
+      "win_rate_pct": 32.4,
+      "net_return_pct": 7.8
+    },
+    "eth_trigonometric": {
+      "trades": 23,
+      "wins": 7,
+      "win_rate_pct": 30.4,
+      "net_return_pct": -2.0
+    },
+    "btc_baseline": {
+      "trades": 56,
+      "wins": 17,
+      "win_rate_pct": 30.4,
+      "net_return_pct": -2.2
+    },
+    "btc_trigonometric": {
+      "trades": 20,
+      "wins": 6,
+      "win_rate_pct": 30.0,
+      "net_return_pct": -2.0
+    },
+    "banca_baseline": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 1260.0,
+      "vault_locked_brl": 1250.0,
+      "liquid_bankroll_brl": 10.0
+    },
+    "banca_trigonometric": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 540.0,
+      "vault_locked_brl": 200.0,
+      "liquid_bankroll_brl": 340.0
+    }
+  },
+  {
+    "year": 2024,
+    "desc": "Bull Market dos ETFs",
+    "eth_baseline": {
+      "trades": 39,
+      "wins": 9,
+      "win_rate_pct": 23.1,
+      "net_return_pct": -13.4
+    },
+    "eth_trigonometric": {
+      "trades": 12,
+      "wins": 5,
+      "win_rate_pct": 41.7,
+      "net_return_pct": 10.0
+    },
+    "btc_baseline": {
+      "trades": 40,
+      "wins": 9,
+      "win_rate_pct": 22.5,
+      "net_return_pct": -21.4
+    },
+    "btc_trigonometric": {
+      "trades": 7,
+      "wins": 1,
+      "win_rate_pct": 14.3,
+      "net_return_pct": -8.2
+    },
+    "banca_baseline": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 240.14,
+      "vault_locked_brl": 200.0,
+      "liquid_bankroll_brl": 40.14
+    },
+    "banca_trigonometric": {
+      "initial_bankroll_brl": 500.0,
+      "final_bankroll_brl": 682.5,
+      "vault_locked_brl": 0.0,
+      "liquid_bankroll_brl": 682.5
+    }
+  }
+]
