@@ -56,14 +56,12 @@ def _extract_row_tuple(row: dict, symbol: str) -> tuple | None:
         return None
 
 
-def _load_csv_records(csv_path: Path, symbol: str, limit: int = 3000) -> list:
-    """Lê registros válidos de um arquivo CSV até o limite especificado."""
+def _load_csv_records(csv_path: Path, symbol: str) -> list:
+    """Lê registros válidos de um arquivo CSV histórico completo."""
     records = []
     with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        for idx, row in enumerate(reader):
-            if idx >= limit:
-                break
+        for row in reader:
             record = _extract_row_tuple(row, symbol)
             if record:
                 records.append(record)
@@ -89,7 +87,7 @@ def _seed_csv_data(cursor: sqlite3.Cursor):
 
 
 def ensure_test_database():
-    """Inicializa as tabelas klines_1h e klines_15m caso não existam ou estejam vazias."""
+    """Inicializa as tabelas klines_1h e klines_15m caso não existam ou estejam incompletas."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -99,7 +97,10 @@ def ensure_test_database():
     cursor.execute("SELECT COUNT(*) FROM klines_1h;")
     count_1h = cursor.fetchone()[0]
 
-    if count_1h == 0:
+    # Se a tabela estiver vazia ou com menos de 10.000 candles (incompleta para 2024)
+    if count_1h < 10000:
+        cursor.execute("DELETE FROM klines_1h;")
+        cursor.execute("DELETE FROM klines_15m;")
         _seed_csv_data(cursor)
         conn.commit()
 
