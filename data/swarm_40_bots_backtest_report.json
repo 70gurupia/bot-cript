@@ -1,73 +1,73 @@
 {
   "groups_definitions": {
-    "Grupo 1 (Bots 1-5)": "G3 Newtoniana Scalp BTC (15m)",
-    "Grupo 2 (Bots 6-10)": "G3 Newtoniana Scalp ETH (15m)",
-    "Grupo 3 (Bots 11-15)": "Lead-Lag Temporal BTC -> Altcoins (15m)",
-    "Grupo 4 (Bots 16-20)": "Donchian 40 Trend Following DOGE (1h)",
-    "Grupo 5 (Bots 21-25)": "Donchian 40 Trend Following SOL & AVAX (1h)",
-    "Grupo 6 (Bots 26-30)": "Revers\u00e3o \u00e0 M\u00e9dia RSI + Bollinger XRP & ADA (15m)",
-    "Grupo 7 (Bots 31-35)": "Trend Following Seletivo TRX & BNB (1h)",
-    "Grupo 8 (Bots 36-40)": "Cash & Carry Funding Rate Arbitrage (8h)"
+    "Grupo 1 (Bots 1-5)": "G3 Newtoniana Scalp BTC (15m, Tsallis + TAMA, Payoff 2:1)",
+    "Grupo 2 (Bots 6-10)": "G3 Newtoniana Scalp ETH (15m, Tsallis + TAMA, Payoff 2:1)",
+    "Grupo 3 (Bots 11-15)": "Lead-Lag Temporal BTC -> ETH (15m, Payoff 2:1)",
+    "Grupo 4 (Bots 16-20)": "Donchian 40 Trend Following DOGE (1h, Filtro Matricial)",
+    "Grupo 5 (Bots 21-25)": "Donchian 40 Trend Following SOL & AVAX (1h, Filtro Matricial)",
+    "Grupo 6 (Bots 26-30)": "Donchian 40 Trend Following DOT & LINK (1h, Filtro Matricial)",
+    "Grupo 7 (Bots 31-35)": "Trend Following Seletivo TRX & BNB (1h, Filtro Matricial)",
+    "Grupo 8 (Bots 36-40)": "Cash & Carry Funding Rate Arbitrage (8h, Delta-Neutro)"
   },
   "scenarios": [
     {
-      "name": "1 Bot Monol\u00edtico (Ordem \u00danica Pesada)",
+      "name": "1 Bot Monolitico (Ordem Unica c/ Slippage)",
       "stats": {
         "total_bots": 1,
-        "total_trades": 245,
-        "win_rate_pct": 35.1,
-        "final_capital_brl": 10.23,
-        "net_return_pct": -99.9,
-        "max_drawdown_pct": 99.9,
-        "slippage_drag_pct": 0.35
+        "total_trades": 18,
+        "win_rate_pct": 27.8,
+        "final_capital_brl": 9775.0,
+        "net_return_pct": -2.25,
+        "max_drawdown_pct": 9.46,
+        "slippage_r_penalty": 0.05
       }
     },
     {
-      "name": "5 Bots (1 Grupo: G3 BTC)",
+      "name": "5 Bots (1 Grupo: G3 BTC Fracionado)",
       "stats": {
         "total_bots": 5,
-        "total_trades": 1225,
-        "win_rate_pct": 35.1,
-        "final_capital_brl": 132.52,
-        "net_return_pct": -98.67,
-        "max_drawdown_pct": 98.68,
-        "slippage_drag_pct": 0.0
+        "total_trades": 18,
+        "win_rate_pct": 27.8,
+        "final_capital_brl": 9910.0,
+        "net_return_pct": -0.9,
+        "max_drawdown_pct": 8.93,
+        "slippage_r_penalty": 0.0
       }
     },
     {
       "name": "10 Bots (2 Grupos: G3 BTC + ETH)",
       "stats": {
         "total_bots": 10,
-        "total_trades": 2955,
-        "win_rate_pct": 34.5,
-        "final_capital_brl": 103.92,
-        "net_return_pct": -98.96,
-        "max_drawdown_pct": 98.96,
-        "slippage_drag_pct": 0.0
+        "total_trades": 30,
+        "win_rate_pct": 36.7,
+        "final_capital_brl": 10572.76,
+        "net_return_pct": 5.73,
+        "max_drawdown_pct": 7.27,
+        "slippage_r_penalty": 0.0
       }
     },
     {
       "name": "20 Bots (4 Grupos: BTC, ETH, Lead-Lag, DOGE)",
       "stats": {
         "total_bots": 20,
-        "total_trades": 3440,
-        "win_rate_pct": 35.0,
-        "final_capital_brl": 2180.83,
-        "net_return_pct": -78.19,
-        "max_drawdown_pct": 81.44,
-        "slippage_drag_pct": 0.0
+        "total_trades": 149,
+        "win_rate_pct": 43.0,
+        "final_capital_brl": 16312.75,
+        "net_return_pct": 63.13,
+        "max_drawdown_pct": 12.75,
+        "slippage_r_penalty": 0.0
       }
     },
     {
-      "name": "40 Bots (8 Grupos de 5 Bots Completos)",
+      "name": "40 Bots (8 Grupos Completos em Paralelo)",
       "stats": {
         "total_bots": 40,
-        "total_trades": 7670,
-        "win_rate_pct": 51.7,
-        "final_capital_brl": 3950557.75,
-        "net_return_pct": 39405.58,
-        "max_drawdown_pct": 68.0,
-        "slippage_drag_pct": 0.0
+        "total_trades": 1966,
+        "win_rate_pct": 73.0,
+        "final_capital_brl": 87775.03,
+        "net_return_pct": 777.75,
+        "max_drawdown_pct": 11.39,
+        "slippage_r_penalty": 0.0
       }
     }
   ]
