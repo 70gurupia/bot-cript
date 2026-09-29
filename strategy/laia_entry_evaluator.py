@@ -74,6 +74,26 @@ class LaiaEntryEvaluator:
         """Detecta acumulacao institucional oculta (altcoin forte enquanto BTC cai)."""
         return btc_ret < -0.008 and alt_ret >= 0.001 and alt_volume_ratio >= 1.4
 
+    def _determine_decision(
+        self,
+        score: float,
+        side: str,
+        is_mechanical_signal_active: bool,
+        reasons: List[str]
+    ) -> tuple[str, str, bool]:
+        """Calcula a ação, modo de risco e superioridade com base no score."""
+        if score >= self.min_quality_score:
+            action = side
+            risk_mode = "ANTI_MARTINGALE_EXPAND" if score >= 85.0 else "BASE_RISK"
+            is_superior = not is_mechanical_signal_active or (score >= 85.0)
+            return action, risk_mode, is_superior
+
+        action = "FILTERED_NO_TRADE" if is_mechanical_signal_active else "HOLD_WAIT"
+        risk_mode = "NO_TRADE"
+        is_superior = is_mechanical_signal_active
+        reasons.append("Filtro cognitivo ativo: confluencia insuficiente para arriscar capital.")
+        return action, risk_mode, is_superior
+
     def evaluate_entry(
         self,
         symbol: str,
@@ -115,16 +135,10 @@ class LaiaEntryEvaluator:
         score = max(0.0, min(100.0, score))
         confidence = score / 100.0
 
-        # 3. Decisao final
-        if score >= self.min_quality_score:
-            action = side
-            risk_mode = "ANTI_MARTINGALE_EXPAND" if score >= 85.0 else "BASE_RISK"
-            is_superior = not is_mechanical_signal_active or (score >= 85.0)
-        else:
-            action = "FILTERED_NO_TRADE" if is_mechanical_signal_active else "HOLD_WAIT"
-            risk_mode = "NO_TRADE"
-            is_superior = is_mechanical_signal_active  # Superior por evitar trade perdedor
-            reasons.append("Filtro cognitivo ativo: confluencia insuficiente para arriscar capital.")
+        # 3. Decisao final via helper
+        action, risk_mode, is_superior = self._determine_decision(
+            score, side, is_mechanical_signal_active, reasons
+        )
 
         return EntryEvaluationResult(
             symbol=symbol,

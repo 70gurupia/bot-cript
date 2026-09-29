@@ -43,10 +43,40 @@ class OpenCodeSupervisorClient:
                 return False
         return await loop.run_in_executor(None, _check)
 
+    def _parse_llm_json(self, raw_payload: Any) -> Dict[str, Any] | None:
+        """Processa e decodifica a resposta da LLM em um dicionário estruturado."""
+        text_response = raw_payload.get("response") or raw_payload.get("output") if isinstance(raw_payload, dict) else raw_payload
+        if isinstance(text_response, str):
+            clean_text = text_response.strip().replace("```json", "").replace("```", "").strip()
+            return json.loads(clean_text)
+        if isinstance(text_response, dict):
+            return text_response
+        return None
+
+    def _execute_http_request_sync(self, payload: dict) -> Dict[str, Any] | None:
+        """Executa a requisição síncrona HTTP para o servidor OpenCode."""
+        try:
+            req = urllib.request.Request(
+                f"{self.base_url}/run",
+                data=json.dumps(payload).encode("utf-8"),
+                headers={
+                    "Content-Type": "application/json",
+                    "User-Agent": "BotCripto-Supervisor/1.0"
+                }
+            )
+            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+                if resp.status == 200:
+                    raw = resp.read().decode("utf-8")
+                    data = json.loads(raw)
+                    return self._parse_llm_json(data)
+        except Exception:
+            return None
+        return None
+
     async def evaluate_market_regime(self, market_summary: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Envia o sumario do mercado para o OpenCode e retorna a classificacao do regime.
-        Aplica fallback automatico em caso de falha de rede ou timeout.
+        Envia o sumário do mercado para o OpenCode e retorna a classificação do regime.
+        Aplica fallback automático em caso de falha de rede ou timeout.
         """
         prompt = (
             "Voce e o Agente Supervisor de Risco de um ecossistema quantitativo de criptoativos. "
@@ -62,45 +92,13 @@ class OpenCodeSupervisorClient:
             "}\n\n"
             f"DADOS DO MERCADO:\n{json.dumps(market_summary, indent=2)}"
         )
-
-        payload = {
-            "message": prompt
-        }
-
+        payload = {"message": prompt}
         loop = asyncio.get_event_loop()
-        def _post_request():
-            try:
-                # O OpenCode serve expoe endpoint para envio de mensagens/prompt
-                req = urllib.request.Request(
-                    f"{self.base_url}/run",
-                    data=json.dumps(payload).encode("utf-8"),
-                    headers={
-                        "Content-Type": "application/json",
-                        "User-Agent": "BotCripto-Supervisor/1.0"
-                    }
-                )
-                with urllib.request.urlopen(req, timeout=self.timeout) as resp:
-                    if resp.status == 200:
-                        raw = resp.read().decode("utf-8")
-                        data = json.loads(raw)
-                        # Tratar possivel encapsulamento de resposta da API do OpenCode
-                        text_response = data.get("response") or data.get("output") or raw
-                        # Parse do JSON interno retornado pela LLM
-                        if isinstance(text_response, str):
-                            clean_text = text_response.strip().replace("```json", "").replace("```", "").strip()
-                            return json.loads(clean_text)
-                        elif isinstance(text_response, dict):
-                            return text_response
-            except Exception as e:
-                # Log e retorno do fallback conservador
-                return None
-            return None
+        result = await loop.run_in_executor(None, self._execute_http_request_sync, payload)
 
-        result = await loop.run_in_executor(None, _post_request)
         if result and isinstance(result, dict) and "regime" in result:
-            # Validar limites do multiplicador de exposicao
             mult = float(result.get("multiplicador_exposicao", 0.5))
             result["multiplicador_exposicao"] = max(0.1, min(1.0, mult))
             return result
-            
+
         return FALLBACK_REGIME

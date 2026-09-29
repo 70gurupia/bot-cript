@@ -325,47 +325,49 @@ class PaperTradingExchange:
             "cash_balance_usd": self.cash_balance_usd
         }
 
-    def on_market_candle(self, symbol: str, high: float, low: float, close: float):
-        """Processa a chegada de um novo candle de mercado para preencher limites e checar liquidações."""
-        # 1. Checa ordens limite pendentes
+    def _try_fill_limit_order(self, order: PaperOrder, high: float, low: float) -> bool:
+        """Verifica se as condições de preço do candle satisfazem a execução da ordem limite."""
+        if order.side == "BUY" and low <= order.price:
+            return True
+        if order.side == "SELL" and high >= order.price:
+            return True
+        return False
+
+    def _execute_filled_order(self, order: PaperOrder, order_id: str, orders_to_remove: list):
+        """Executa a alocação de margem e abertura da posição da ordem limite preenchida."""
+        filled_price = order.price
+        notional = order.amount * filled_price
+        maker_fee = notional * (self.MAKER_FEE_PCT / 100.0)
+        collateral = notional / order.leverage
+
+        if collateral <= self.cash_balance_usd:
+            self.cash_balance_usd -= (collateral + maker_fee)
+            order.status = "FILLED"
+            order.filled_price = filled_price
+            order.fee_usd = maker_fee
+            orders_to_remove.append(order_id)
+
+            pos_id = f"pos_{uuid.uuid4().hex[:8]}"
+            pos_side = "LONG" if order.side == "BUY" else "SHORT"
+            self.positions[pos_id] = Position(
+                pos_id, order.agent_id, order.symbol, pos_side,
+                order.amount, filled_price, order.leverage, collateral, order.margin_type
+            )
+
+    def _process_limit_orders(self, symbol: str, high: float, low: float):
+        """Varre e processa ordens limite pendentes para o símbolo."""
         orders_to_remove = []
         for order_id, order in self.open_orders.items():
             if order.symbol != symbol or order.status != "OPEN":
                 continue
-
-            filled = False
-            filled_price = order.price
-
-            # Compra limite preenche se o preco minimo do candle atingiu o preco da ordem
-            if order.side == "BUY" and low <= order.price:
-                filled = True
-            # Venda limite preenche se o preco maximo do candle atingiu o preco da ordem
-            elif order.side == "SELL" and high >= order.price:
-                filled = True
-
-            if filled:
-                notional = order.amount * filled_price
-                maker_fee = notional * (self.MAKER_FEE_PCT / 100.0)
-                collateral = notional / order.leverage
-
-                if collateral <= self.cash_balance_usd:
-                    self.cash_balance_usd -= (collateral + maker_fee)
-                    order.status = "FILLED"
-                    order.filled_price = filled_price
-                    order.fee_usd = maker_fee
-                    orders_to_remove.append(order_id)
-
-                    pos_id = f"pos_{uuid.uuid4().hex[:8]}"
-                    pos_side = "LONG" if order.side == "BUY" else "SHORT"
-                    self.positions[pos_id] = Position(
-                        pos_id, order.agent_id, order.symbol, pos_side,
-                        order.amount, filled_price, order.leverage, collateral, order.margin_type
-                    )
+            if self._try_fill_limit_order(order, high, low):
+                self._execute_filled_order(order, order_id, orders_to_remove)
 
         for oid in orders_to_remove:
             del self.open_orders[oid]
 
-        # 2. Atualiza PnL e verifica liquidacao para posicoes abertas
+    def _update_open_positions(self, symbol: str, close: float):
+        """Atualiza PnL e verifica liquidação para posições abertas."""
         for pos in self.positions.values():
             if not pos.is_closed and pos.symbol == symbol:
                 liquidated = pos.update_price(close)
@@ -381,3 +383,8 @@ class PaperTradingExchange:
                             "liquidation_price": pos.liquidation_price
                         }
                     )
+
+    def on_market_candle(self, symbol: str, high: float, low: float, close: float):
+        """Processa a chegada de um novo candle de mercado para preencher limites e checar liquidações."""
+        self._process_limit_orders(symbol, high, low)
+        self._update_open_positions(symbol, close)

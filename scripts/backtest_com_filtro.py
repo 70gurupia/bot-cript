@@ -41,82 +41,83 @@ def calc_indicators(rows):
         r["session"] = SESSION_MAP.get(r["hour"], "Off")
     return rows
 
-def backtest_simple(rows, use_filter=True):
-    # Regra: entrar quando filtro atende; sair no próximo candle que não atende OU após 3 candles
-    capital = 100.0  # simulado R$ 100 (escala) — risk per trade = 0,1% (novo)
-    in_pos = False
-    trades = []
-    entry_price = 0.0
-    wins = 0
-    losses = 0
-    max_dd = 0.0
-    peak = capital
-    for i, r in enumerate(rows):
-        filtro = (r["body_pct"] > 0.6) and (r["vol_rel"] > 1.3) and (r["session"] == "NY") and (r["pos_mm20"] > 0.0)
-        if not use_filter:
-            filtro = True  # sem filtro: entra em todo candle (benchmark base)
-        if filtro and not in_pos:
-            in_pos = True
-            entry_price = r["close"]
-            # risco por trade = 1% do capital (simulado)
-        elif in_pos:
-            # saída: se filtro para OU se preço cai >2% do entry OU após 3 candles
-            candles_held = i - (rows.index(r) if False else i)  # não usado diretamente; simplificado: sair se não atende filtro
-            # simplificação: sair se o PROXIMO candle não atende filtro (ou se preço caiu 2%)
-            # Como é loop sequencial, vamos sair no próximo candle que não atende
-            pass
-    # Implementação simples direta: entrar quando atende, sair no próximo que NÃO atende; se nunca sai, sair no final
-    capital = 100.0
-    in_pos = False
-    entry_price = 0.0
-    trades = []
-    for i in range(len(rows)-1):
-        r = rows[i]
-        r_next = rows[i+1]
-        filtro = (r["body_pct"] > 0.6) and (r["vol_rel"] > 1.3) and (r["session"] == "NY") and (r["pos_mm20"] > 0.0)
-        if not use_filter:
-            filtro = True
-        if filtro and not in_pos:
-            in_pos = True
-            entry_price = r["close"]
-        elif in_pos:
-            # verifica se deve sair: se próximo não atende filtro OU preço caiu 2%
-            should_exit = False
-            if not use_filter:
-                # sem filtro: sair após 3 candles (simulação de holding curto)
-                # vamos simplificar: sair no próximo candle sempre (turno rápido)
-                should_exit = True
-            else:
-                filtro_next = (r_next["body_pct"] > 0.6) and (r_next["vol_rel"] > 1.3) and (r_next["session"] == "NY") and (r_next["pos_mm20"] > 0.0)
-                if not filtro_next:
-                    should_exit = True
-                elif r_next["close"] < entry_price * 0.98:
-                    should_exit = True
-            if should_exit:
-                exit_price = r_next["close"]
-                pnl_pct = (exit_price - entry_price) / entry_price
-                trades.append({"entry": entry_price, "exit": exit_price, "pnl_pct": pnl_pct, "win": pnl_pct > 0})
-                capital *= (1 + pnl_pct)  # 1% por trade (padrão original)
-                in_pos = False
-    # Se ainda em posição no final, forçar saída no último candle
-    if in_pos:
-        exit_price = rows[-1]["close"]
-        pnl_pct = (exit_price - entry_price) / entry_price
-        trades.append({"entry": entry_price, "exit": exit_price, "pnl_pct": pnl_pct, "win": pnl_pct > 0})
-        capital *= (1 + pnl_pct)
-    wins = sum(1 for t in trades if t["win"])
-    total = len(trades)
-    win_rate = wins/total if total>0 else 0
-    total_ret = (capital - 100)/100
-    # drawdown simples
+def _matches_filter(row: dict) -> bool:
+    """Verifica se o candle atende às restrições de volatilidade, corpo, sessão e média."""
+    return (
+        row["body_pct"] > 0.6
+        and row["vol_rel"] > 1.3
+        and row["session"] == "NY"
+        and row["pos_mm20"] > 0.0
+    )
+
+
+def _should_exit(row_next: dict, entry_price: float, use_filter: bool) -> bool:
+    """Determina se a posição aberta deve ser encerrada no próximo candle."""
+    if not use_filter:
+        return True
+    if not _matches_filter(row_next):
+        return True
+    if row_next["close"] < entry_price * 0.98:
+        return True
+    return False
+
+
+def _calculate_drawdown(trades: list) -> float:
+    """Calcula o drawdown máximo a partir da lista de trades."""
     equity = [100.0]
     cap = 100.0
     for t in trades:
         cap *= (1 + t["pnl_pct"])
         equity.append(cap)
     peak = max(equity)
-    dd = (peak - min(equity)) / peak if peak > 0 else 0
-    return {"par": rows[0].get("symbol","N/A"), "use_filter": use_filter, "trades": total, "wins": wins, "win_rate": round(win_rate,3), "retorno_pct": round(total_ret*100,2), "max_drawdown_pct": round(dd*100,2), "capital_final": round(capital,2), "media_pnl_pos": round(sum(t["pnl_pct"] for t in trades)/max(1,len(trades)),4)}
+    return (peak - min(equity)) / peak if peak > 0 else 0.0
+
+
+def backtest_simple(rows, use_filter=True):
+    """Executa a simulação sequencial de trades com ou sem o filtro institucional."""
+    capital = 100.0
+    in_pos = False
+    entry_price = 0.0
+    trades = []
+
+    for i in range(len(rows) - 1):
+        r = rows[i]
+        r_next = rows[i + 1]
+        filtro = _matches_filter(r) if use_filter else True
+
+        if filtro and not in_pos:
+            in_pos = True
+            entry_price = r["close"]
+        elif in_pos and _should_exit(r_next, entry_price, use_filter):
+            exit_price = r_next["close"]
+            pnl_pct = (exit_price - entry_price) / entry_price
+            trades.append({"entry": entry_price, "exit": exit_price, "pnl_pct": pnl_pct, "win": pnl_pct > 0})
+            capital *= (1 + pnl_pct)
+            in_pos = False
+
+    if in_pos:
+        exit_price = rows[-1]["close"]
+        pnl_pct = (exit_price - entry_price) / entry_price
+        trades.append({"entry": entry_price, "exit": exit_price, "pnl_pct": pnl_pct, "win": pnl_pct > 0})
+        capital *= (1 + pnl_pct)
+
+    wins = sum(1 for t in trades if t["win"])
+    total = len(trades)
+    win_rate = wins / total if total > 0 else 0.0
+    total_ret = (capital - 100.0) / 100.0
+    dd = _calculate_drawdown(trades)
+
+    return {
+        "par": rows[0].get("symbol", "N/A"),
+        "use_filter": use_filter,
+        "trades": total,
+        "wins": wins,
+        "win_rate": round(win_rate, 3),
+        "retorno_pct": round(total_ret * 100, 2),
+        "max_drawdown_pct": round(dd * 100, 2),
+        "capital_final": round(capital, 2),
+        "media_pnl_pos": round(sum(t["pnl_pct"] for t in trades) / max(1, len(trades)), 4)
+    }
 
 results = {}
 # BTC 1h (Lead-Lag / Donchian / Cash&Carry proxy)

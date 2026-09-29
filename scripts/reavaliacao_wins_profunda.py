@@ -89,85 +89,107 @@ def calc_indicators(rows):
         })
     return out
 
+def _resolve_csv_file(strategy: dict) -> Path | None:
+    """Localiza o arquivo CSV correspondente ao par e timeframe da estratégia."""
+    pair = strategy["pair"]
+    file_1h = CSV_DIR / f"{pair}_1h_2020_2024.csv"
+    file_15m = CSV_DIR / f"{pair}_15m_2020_2024.csv"
+
+    if strategy["tf"] == "15m" and file_15m.exists():
+        return file_15m
+    if file_1h.exists():
+        return file_1h
+    return None
+
+
+def _calc_lead_lag_corr(strategy: dict, csv_file: Path) -> float | None:
+    """Calcula a correlação de Lead-Lag de 1 barra com o ativo seguidor, se configurado."""
+    if not strategy.get("pair_follow"):
+        return None
+
+    f_follow = CSV_DIR / f"{strategy['pair_follow']}_15m_2020_2024.csv"
+    if not f_follow.exists():
+        return None
+
+    file_15m = CSV_DIR / f"{strategy['pair']}_15m_2020_2024.csv"
+    base_csv = file_15m if strategy["tf"] == "15m" and file_15m.exists() else csv_file
+    rows_b = parse_csv(base_csv)
+    rows_e = parse_csv(f_follow)
+
+    min_n = min(len(rows_b), len(rows_e))
+    if min_n <= 10:
+        return None
+
+    closes_b = [rows_b[i]["close"] for i in range(min_n)]
+    closes_e = [rows_e[i + 1]["close"] for i in range(min_n - 1)]
+    mean_b = sum(closes_b[:len(closes_e)]) / len(closes_e)
+    mean_e = sum(closes_e) / len(closes_e)
+
+    cov = sum((closes_b[i] - mean_b) * (closes_e[i] - mean_e) for i in range(len(closes_e))) / len(closes_e)
+    var_b = sum((x - mean_b) ** 2 for x in closes_b[:len(closes_e)]) / len(closes_e)
+    var_e = sum((x - mean_e) ** 2 for x in closes_e) / len(closes_e)
+
+    if var_b > 0 and var_e > 0:
+        return round(cov / math.sqrt(var_b * var_e), 4)
+    return None
+
+
+def _evaluate_strategy_metrics(strategy: dict, csv_file: Path) -> dict:
+    """Calcula todas as métricas e constantes de sondagem de uma estratégia."""
+    rows = parse_csv(csv_file)
+    ind = calc_indicators(rows)
+    both = [r for r in ind if r["body_pct"] > 0.6 and r["vol_rel"] > 1.3]
+
+    body_by_hour = defaultdict(list)
+    session_vol = defaultdict(float)
+    session_n = defaultdict(int)
+
+    for r in ind:
+        body_by_hour[r["hour_utc"]].append(r["body_pct"])
+        session_vol[r["session"]] += r["vol_rel"]
+        session_n[r["session"]] += 1
+
+    best_hour = max(body_by_hour, key=lambda h: sum(body_by_hour[h]) / max(1, len(body_by_hour[h])))
+    session_vol_avg = {k: round(session_vol[k] / max(1, session_n[k]), 3) for k in session_vol}
+    corr_lead = _calc_lead_lag_corr(strategy, csv_file)
+
+    return {
+        "estrategia": strategy["name"],
+        "par": strategy["pair"],
+        "timeframe": strategy["tf"],
+        "win_rate": strategy["win_rate"],
+        "retorno": strategy["ret"],
+        "max_dd": strategy["dd"],
+        "linhas": len(ind),
+        "mean_vol_rel": round(sum(r["vol_rel"] for r in ind) / max(1, len(ind)), 3),
+        "mean_body_pct": round(sum(r["body_pct"] for r in ind) / max(1, len(ind)), 3),
+        "best_dow": Counter(r.get("dow", "?") for r in ind).most_common(1)[0][0] if ind else "N/A",
+        "count_body_high_vol": len(both),
+        "pct_strong": round(100 * len(both) / max(1, len(ind)), 2),
+        "best_hour_by_body": best_hour,
+        "session_vol_avg": session_vol_avg,
+        "lead_lag_corr_1bar": corr_lead,
+        "nota": "Constante sugerida: body_pct > 0,6 + vol_rel > 1,3 + sessao NY (13-18h) + close > mm20 (pos_mm20 > 0). Se >50% das barras fortes atenderem, valida filtro no AST."
+    }
+
+
 def main():
     results = {}
     for s in STRATEGIES:
-        pair = s["pair"]
-        file_1h = CSV_DIR / f"{pair}_1h_2020_2024.csv"
-        file_15m = CSV_DIR / f"{pair}_15m_2020_2024.csv"
-        # Usa 15m se existir; senão 1h (os históricos do projeto são 1h e 15m, mas só 1h está completo para todos)
-        if s["tf"] == "15m" and file_15m.exists():
-            csv_file = file_15m
-        elif file_1h.exists():
-            csv_file = file_1h
-        else:
-            results[s["name"]] = {"erro":"CSV não encontrado","arquivo":str(file_1h.name)}
+        csv_file = _resolve_csv_file(s)
+        if not csv_file or not csv_file.exists():
+            results[s["name"]] = {"erro": "CSV não encontrado"}
             continue
-        if not csv_file.exists():
-            results[s["name"]] = {"erro":"CSV não encontrado","arquivo":str(csv_file.name)}
-            continue
-        rows = parse_csv(csv_file)
-        ind = calc_indicators(rows)
-        # Constantes de sondagem
-        body_high = [r for r in ind if r["body_pct"] > 0.6]
-        vol_high = [r for r in ind if r["vol_rel"] > 1.3]
-        both = [r for r in ind if r["body_pct"] > 0.6 and r["vol_rel"] > 1.3]
-        # Horário que concentra body alto
-        body_by_hour = defaultdict(list)
-        for r in ind:
-            body_by_hour[r["hour_utc"]].append(r["body_pct"])
-        best_hour = max(body_by_hour, key=lambda h: sum(body_by_hour[h])/max(1,len(body_by_hour[h])))
-        # Sessão
-        session_counts = Counter(r["session"] for r in ind)
-        session_vol = defaultdict(float)
-        session_n = defaultdict(int)
-        for r in ind:
-            session_vol[r["session"]] += r["vol_rel"]
-            session_n[r["session"]] += 1
-        session_vol_avg = {k: session_vol[k]/max(1,session_n[k]) for k in session_vol}
-        # Lead-lag simplificado (BTC -> ETH 15m se disponível)
-        corr_lead = None
-        if s.get("pair_follow"):
-            f_follow = CSV_DIR / f"{s['pair_follow']}_15m_2020_2024.csv"
-            if f_follow.exists():
-                rows_b = parse_csv(file_15m if s["tf"]=="15m" else csv_file)
-                rows_e = parse_csv(f_follow)
-                # simplificado: comparar primeiras 100 barras alinhadas por ts
-                min_n = min(len(rows_b), len(rows_e))
-                if min_n > 10:
-                    closes_b = [rows_b[i]["close"] for i in range(min_n)]
-                    closes_e = [rows_e[i+1]["close"] for i in range(min_n-1)]
-                    mean_b = sum(closes_b[:len(closes_e)]) / len(closes_e)
-                    mean_e = sum(closes_e) / len(closes_e)
-                    cov = sum((closes_b[i]-mean_b)*(closes_e[i]-mean_e) for i in range(len(closes_e))) / len(closes_e)
-                    var_b = sum((x-mean_b)**2 for x in closes_b[:len(closes_e)]) / len(closes_e)
-                    var_e = sum((x-mean_e)**2 for x in closes_e) / len(closes_e)
-                    if var_b > 0 and var_e > 0:
-                        corr_lead = round(cov / math.sqrt(var_b*var_e), 4)
-        results[s["name"]] = {
-            "estrategia": s["name"],
-            "par": s["pair"],
-            "timeframe": s["tf"],
-            "win_rate": s["win_rate"],
-            "retorno": s["ret"],
-            "max_dd": s["dd"],
-            "linhas": len(ind),
-        "mean_vol_rel": round(sum(r["vol_rel"] for r in ind)/max(1,len(ind)),3),
-        "mean_body_pct": round(sum(r["body_pct"] for r in ind)/max(1,len(ind)),3),
-        "best_dow": Counter(r.get("dow","?") for r in ind).most_common(1)[0][0] if ind else "N/A",
-            "count_body_high_vol": len(both),
-            "pct_strong": round(100*len(both)/max(1,len(ind)),2),
-            "best_hour_by_body": best_hour,
-            "session_vol_avg": {k: round(v,3) for k,v in session_vol_avg.items()},
-            "lead_lag_corr_1bar": corr_lead,
-            "nota": "Constante sugerida: body_pct > 0,6 + vol_rel > 1,3 + sessao NY (13-18h) + close > mm20 (pos_mm20 > 0). Se >50% das barras fortes atenderem, valida filtro no AST."
-        }
+        results[s["name"]] = _evaluate_strategy_metrics(s, csv_file)
+
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False, default=str)
+
     print("Executado.", OUT)
-    for k,v in results.items():
-        if isinstance(v,dict):
+    for k, v in results.items():
+        if isinstance(v, dict):
             print(f"{k}: strong_pct={v.get('pct_strong')}, best_hour={v.get('best_hour_by_body')}, lead={v.get('lead_lag_corr_1bar')}")
+
 
 if __name__ == "__main__":
     main()
