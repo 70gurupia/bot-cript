@@ -82,7 +82,18 @@ class TestAntiMartingaleEngine(unittest.TestCase):
         self.assertIn("flat_linear", results)
         self.assertIn("anti_martingale", results)
         self.assertIn("fixed_fractional", results)
+        self.assertIn("anti_martingale_vault", results)
+        self.assertIn("anti_martingale_adaptive", results)
         self.assertIn("ruin_probability_pct", results["anti_martingale"])
+        self.assertIn("average_vault_locked", results["anti_martingale_vault"])
+
+    def test_ratchet_vault_protection(self):
+        cfg = AntiMartingaleConfig(initial_bankroll_brl=10.0, target_bankroll_brl=500.0, vault_lock_pct=0.40)
+        results = run_monte_carlo_comparison(
+            cfg, num_simulations=20, trades_per_year=50, modes=["anti_martingale_vault"]
+        )
+        self.assertIn("anti_martingale_vault", results)
+        self.assertGreaterEqual(results["anti_martingale_vault"]["average_vault_locked"], 0.0)
 
 
 if __name__ == "__main__":
