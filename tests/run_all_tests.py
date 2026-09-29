@@ -48,9 +48,13 @@ TEST_FILES = [
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, BASE_DIR)
+
+from scripts.init_test_db import ensure_test_database
 
 
 def main():
+    ensure_test_database()
     print("\n==================================================================")
     print("ORQUESTRADOR DE TESTES: BOT CRIPTO (SUÍTE COMPLETA)")
     print("==================================================================")
