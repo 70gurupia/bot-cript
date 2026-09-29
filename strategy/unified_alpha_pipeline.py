@@ -42,6 +42,7 @@ from monitoring.operational_alerts import (
     format_vault_ratchet_alert,
     format_eod_summary_alert
 )
+from strategy.cross_sectional_matrix_engine import evaluate_matrix_alpha
 
 
 @dataclass
@@ -131,6 +132,31 @@ class UnifiedAlphaPipeline:
 
         return True, obi, "OK"
 
+    def _validate_matrix_conditions(
+        self,
+        symbol: str,
+        open_p: Optional[float],
+        high_p: Optional[float],
+        low_p: Optional[float],
+        close_p: float,
+        open_time_ms: Optional[int],
+        closes_history: Optional[List[float]],
+        rs_zscore: float,
+        side: str
+    ) -> Tuple[bool, str]:
+        """Valida restrições matriciais caso dados intradiários sejam informados."""
+        if open_p is None or high_p is None or low_p is None or open_time_ms is None:
+            return True, "OK"
+        hist = closes_history or [close_p]
+        sig = evaluate_matrix_alpha(
+            symbol=symbol, open_p=open_p, high=high_p, low=low_p,
+            close_p=close_p, open_time_ms=open_time_ms, closes_history=hist,
+            relative_strength_zscore=rs_zscore, side=side
+        )
+        if not sig.allow_entry:
+            return False, sig.rejection_reason
+        return True, "OK"
+
     def _evaluate_signals_and_vector(
         self,
         close_price: float,
@@ -167,7 +193,13 @@ class UnifiedAlphaPipeline:
         avg_volume_20: float,
         recent_log_rets: List[float],
         funding_rate: float = 0.0001,
-        book_snapshot: Optional[OrderBookSnapshot] = None
+        book_snapshot: Optional[OrderBookSnapshot] = None,
+        open_price: Optional[float] = None,
+        high_price: Optional[float] = None,
+        low_price: Optional[float] = None,
+        open_time_ms: Optional[int] = None,
+        closes_history: Optional[List[float]] = None,
+        rs_zscore: float = 0.0
     ) -> UnifiedTradeDecision:
         """Processa a vela atual e emite a decisão determinística unificada."""
         vec, sig = self._evaluate_signals_and_vector(
@@ -187,6 +219,17 @@ class UnifiedAlphaPipeline:
                 should_trade=False, symbol=symbol, side=sig.side, execution_plan=None,
                 take_profit_price=0.0, stop_loss_price=0.0, allocated_stake_brl=0.0,
                 current_vault_brl=self.vault, alert_message="", reason=reason
+            )
+
+        mat_valid, mat_reason = self._validate_matrix_conditions(
+            symbol, open_price, high_price, low_price, close_price,
+            open_time_ms, closes_history, rs_zscore, sig.side
+        )
+        if not mat_valid:
+            return UnifiedTradeDecision(
+                should_trade=False, symbol=symbol, side=sig.side, execution_plan=None,
+                take_profit_price=0.0, stop_loss_price=0.0, allocated_stake_brl=0.0,
+                current_vault_brl=self.vault, alert_message="", reason=mat_reason
             )
 
         stake = calculate_compounding_stake(self.bankroll, self.streak, self.entropy_cfg)

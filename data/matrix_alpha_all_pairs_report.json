@@ -1,0 +1,706 @@
+{
+  "timestamp_utc": "2026-09-29T22:00:48.419242+00:00",
+  "pairs_count": 14,
+  "results": [
+    {
+      "symbol": "BTCUSDT",
+      "cumulative": {
+        "trades": 72,
+        "wins": 23,
+        "win_rate_pct": 31.9,
+        "net_return_pct": 78.99
+      },
+      "yearly": {
+        "2018": {
+          "trades": 12,
+          "wins": 4,
+          "win_rate_pct": 33.3,
+          "net_return_pct": 15.17
+        },
+        "2019": {
+          "trades": 12,
+          "wins": 3,
+          "win_rate_pct": 25.0,
+          "net_return_pct": 8.52
+        },
+        "2020": {
+          "trades": 9,
+          "wins": 2,
+          "win_rate_pct": 22.2,
+          "net_return_pct": 0.08
+        },
+        "2021": {
+          "trades": 4,
+          "wins": 2,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 9.8
+        },
+        "2022": {
+          "trades": 9,
+          "wins": 3,
+          "win_rate_pct": 33.3,
+          "net_return_pct": 11.15
+        },
+        "2023": {
+          "trades": 12,
+          "wins": 5,
+          "win_rate_pct": 41.7,
+          "net_return_pct": 20.15
+        },
+        "2024": {
+          "trades": 3,
+          "wins": 1,
+          "win_rate_pct": 33.3,
+          "net_return_pct": 4.09
+        },
+        "2025": {
+          "trades": 11,
+          "wins": 3,
+          "win_rate_pct": 27.3,
+          "net_return_pct": 10.03
+        }
+      },
+      "positive_years": 8,
+      "total_years": 8,
+      "consistency_label": "EXCEPCIONAL (>=85%)"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "cumulative": {
+        "trades": 66,
+        "wins": 25,
+        "win_rate_pct": 37.9,
+        "net_return_pct": 85.77
+      },
+      "yearly": {
+        "2018": {
+          "trades": 8,
+          "wins": 3,
+          "win_rate_pct": 37.5,
+          "net_return_pct": 9.99
+        },
+        "2019": {
+          "trades": 13,
+          "wins": 6,
+          "win_rate_pct": 46.2,
+          "net_return_pct": 25.07
+        },
+        "2020": {
+          "trades": 6,
+          "wins": 3,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 9.32
+        },
+        "2021": {
+          "trades": 3,
+          "wins": 2,
+          "win_rate_pct": 66.7,
+          "net_return_pct": 10.4
+        },
+        "2022": {
+          "trades": 8,
+          "wins": 2,
+          "win_rate_pct": 25.0,
+          "net_return_pct": 1.27
+        },
+        "2023": {
+          "trades": 12,
+          "wins": 3,
+          "win_rate_pct": 25.0,
+          "net_return_pct": 6.72
+        },
+        "2024": {
+          "trades": 6,
+          "wins": 1,
+          "win_rate_pct": 16.7,
+          "net_return_pct": 0.4
+        },
+        "2025": {
+          "trades": 10,
+          "wins": 5,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 22.6
+        }
+      },
+      "positive_years": 8,
+      "total_years": 8,
+      "consistency_label": "EXCEPCIONAL (>=85%)"
+    },
+    {
+      "symbol": "BNBUSDT",
+      "cumulative": {
+        "trades": 34,
+        "wins": 12,
+        "win_rate_pct": 35.3,
+        "net_return_pct": 36.6
+      },
+      "yearly": {
+        "2018": {
+          "trades": 6,
+          "wins": 3,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 10.0
+        },
+        "2019": {
+          "trades": 6,
+          "wins": 2,
+          "win_rate_pct": 33.3,
+          "net_return_pct": 7.62
+        },
+        "2020": {
+          "trades": 2,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -6.19
+        },
+        "2021": {
+          "trades": 4,
+          "wins": 2,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 7.38
+        },
+        "2022": {
+          "trades": 3,
+          "wins": 1,
+          "win_rate_pct": 33.3,
+          "net_return_pct": 3.24
+        },
+        "2023": {
+          "trades": 7,
+          "wins": 1,
+          "win_rate_pct": 14.3,
+          "net_return_pct": 1.09
+        },
+        "2024": {
+          "trades": 1,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -0.99
+        },
+        "2025": {
+          "trades": 5,
+          "wins": 3,
+          "win_rate_pct": 60.0,
+          "net_return_pct": 14.45
+        }
+      },
+      "positive_years": 6,
+      "total_years": 8,
+      "consistency_label": "ALTA (>=70%)"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "cumulative": {
+        "trades": 18,
+        "wins": 6,
+        "win_rate_pct": 33.3,
+        "net_return_pct": 8.91
+      },
+      "yearly": {
+        "2020": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": 0.0
+        },
+        "2021": {
+          "trades": 2,
+          "wins": 1,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 2.76
+        },
+        "2022": {
+          "trades": 3,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -6.33
+        },
+        "2023": {
+          "trades": 6,
+          "wins": 4,
+          "win_rate_pct": 66.7,
+          "net_return_pct": 18.17
+        },
+        "2024": {
+          "trades": 1,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -1.46
+        },
+        "2025": {
+          "trades": 6,
+          "wins": 1,
+          "win_rate_pct": 16.7,
+          "net_return_pct": -4.23
+        }
+      },
+      "positive_years": 2,
+      "total_years": 6,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "cumulative": {
+        "trades": 33,
+        "wins": 8,
+        "win_rate_pct": 24.2,
+        "net_return_pct": -15.35
+      },
+      "yearly": {
+        "2018": {
+          "trades": 4,
+          "wins": 2,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 6.85
+        },
+        "2019": {
+          "trades": 6,
+          "wins": 1,
+          "win_rate_pct": 16.7,
+          "net_return_pct": -8.06
+        },
+        "2020": {
+          "trades": 7,
+          "wins": 2,
+          "win_rate_pct": 28.6,
+          "net_return_pct": -1.85
+        },
+        "2021": {
+          "trades": 1,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -2.29
+        },
+        "2022": {
+          "trades": 5,
+          "wins": 1,
+          "win_rate_pct": 20.0,
+          "net_return_pct": -0.32
+        },
+        "2023": {
+          "trades": 5,
+          "wins": 1,
+          "win_rate_pct": 20.0,
+          "net_return_pct": -5.06
+        },
+        "2024": {
+          "trades": 2,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -4.58
+        },
+        "2025": {
+          "trades": 3,
+          "wins": 1,
+          "win_rate_pct": 33.3,
+          "net_return_pct": -0.04
+        }
+      },
+      "positive_years": 1,
+      "total_years": 8,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "cumulative": {
+        "trades": 46,
+        "wins": 14,
+        "win_rate_pct": 30.4,
+        "net_return_pct": 6.6
+      },
+      "yearly": {
+        "2018": {
+          "trades": 10,
+          "wins": 4,
+          "win_rate_pct": 40.0,
+          "net_return_pct": 7.16
+        },
+        "2019": {
+          "trades": 8,
+          "wins": 3,
+          "win_rate_pct": 37.5,
+          "net_return_pct": 6.13
+        },
+        "2020": {
+          "trades": 7,
+          "wins": 2,
+          "win_rate_pct": 28.6,
+          "net_return_pct": -5.42
+        },
+        "2021": {
+          "trades": 3,
+          "wins": 1,
+          "win_rate_pct": 33.3,
+          "net_return_pct": 4.3
+        },
+        "2022": {
+          "trades": 8,
+          "wins": 1,
+          "win_rate_pct": 12.5,
+          "net_return_pct": -5.05
+        },
+        "2023": {
+          "trades": 4,
+          "wins": 3,
+          "win_rate_pct": 75.0,
+          "net_return_pct": 15.04
+        },
+        "2024": {
+          "trades": 3,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -9.62
+        },
+        "2025": {
+          "trades": 3,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -5.94
+        }
+      },
+      "positive_years": 4,
+      "total_years": 8,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "LINKUSDT",
+      "cumulative": {
+        "trades": 24,
+        "wins": 8,
+        "win_rate_pct": 33.3,
+        "net_return_pct": -0.22
+      },
+      "yearly": {
+        "2019": {
+          "trades": 2,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -8.19
+        },
+        "2020": {
+          "trades": 4,
+          "wins": 1,
+          "win_rate_pct": 25.0,
+          "net_return_pct": -6.07
+        },
+        "2021": {
+          "trades": 3,
+          "wins": 1,
+          "win_rate_pct": 33.3,
+          "net_return_pct": -0.02
+        },
+        "2022": {
+          "trades": 4,
+          "wins": 2,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 5.68
+        },
+        "2023": {
+          "trades": 4,
+          "wins": 1,
+          "win_rate_pct": 25.0,
+          "net_return_pct": 1.27
+        },
+        "2024": {
+          "trades": 3,
+          "wins": 1,
+          "win_rate_pct": 33.3,
+          "net_return_pct": 0.5
+        },
+        "2025": {
+          "trades": 4,
+          "wins": 2,
+          "win_rate_pct": 50.0,
+          "net_return_pct": 6.61
+        }
+      },
+      "positive_years": 4,
+      "total_years": 7,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "cumulative": {
+        "trades": 21,
+        "wins": 3,
+        "win_rate_pct": 14.3,
+        "net_return_pct": -28.84
+      },
+      "yearly": {
+        "2019": {
+          "trades": 1,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -4.92
+        },
+        "2020": {
+          "trades": 1,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": 0.0
+        },
+        "2021": {
+          "trades": 4,
+          "wins": 1,
+          "win_rate_pct": 25.0,
+          "net_return_pct": -8.03
+        },
+        "2022": {
+          "trades": 4,
+          "wins": 1,
+          "win_rate_pct": 25.0,
+          "net_return_pct": -1.69
+        },
+        "2023": {
+          "trades": 4,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -8.39
+        },
+        "2024": {
+          "trades": 2,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -2.41
+        },
+        "2025": {
+          "trades": 5,
+          "wins": 1,
+          "win_rate_pct": 20.0,
+          "net_return_pct": -3.4
+        }
+      },
+      "positive_years": 0,
+      "total_years": 7,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "cumulative": {
+        "trades": 15,
+        "wins": 2,
+        "win_rate_pct": 13.3,
+        "net_return_pct": -13.92
+      },
+      "yearly": {
+        "2020": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": 0.0
+        },
+        "2021": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": 0.0
+        },
+        "2022": {
+          "trades": 7,
+          "wins": 1,
+          "win_rate_pct": 14.3,
+          "net_return_pct": -5.48
+        },
+        "2023": {
+          "trades": 4,
+          "wins": 1,
+          "win_rate_pct": 25.0,
+          "net_return_pct": 0.3
+        },
+        "2024": {
+          "trades": 2,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -5.5
+        },
+        "2025": {
+          "trades": 2,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -3.24
+        }
+      },
+      "positive_years": 1,
+      "total_years": 6,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "DOTUSDT",
+      "cumulative": {
+        "trades": 24,
+        "wins": 5,
+        "win_rate_pct": 20.8,
+        "net_return_pct": -10.08
+      },
+      "yearly": {
+        "2020": {
+          "trades": 0,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": 0.0
+        },
+        "2021": {
+          "trades": 4,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -10.67
+        },
+        "2022": {
+          "trades": 6,
+          "wins": 1,
+          "win_rate_pct": 16.7,
+          "net_return_pct": -3.46
+        },
+        "2023": {
+          "trades": 5,
+          "wins": 2,
+          "win_rate_pct": 40.0,
+          "net_return_pct": 5.62
+        },
+        "2024": {
+          "trades": 2,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -4.71
+        },
+        "2025": {
+          "trades": 7,
+          "wins": 2,
+          "win_rate_pct": 28.6,
+          "net_return_pct": 3.14
+        }
+      },
+      "positive_years": 2,
+      "total_years": 6,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "TRXUSDT",
+      "cumulative": {
+        "trades": 16,
+        "wins": 7,
+        "win_rate_pct": 43.8,
+        "net_return_pct": 22.73
+      },
+      "yearly": {
+        "2018": {
+          "trades": 5,
+          "wins": 2,
+          "win_rate_pct": 40.0,
+          "net_return_pct": 3.07
+        },
+        "2019": {
+          "trades": 5,
+          "wins": 2,
+          "win_rate_pct": 40.0,
+          "net_return_pct": 4.71
+        },
+        "2025": {
+          "trades": 5,
+          "wins": 3,
+          "win_rate_pct": 60.0,
+          "net_return_pct": 15.55
+        }
+      },
+      "positive_years": 3,
+      "total_years": 3,
+      "consistency_label": "EXCEPCIONAL (>=85%)"
+    },
+    {
+      "symbol": "LTCUSDT",
+      "cumulative": {
+        "trades": 24,
+        "wins": 11,
+        "win_rate_pct": 45.8,
+        "net_return_pct": 34.33
+      },
+      "yearly": {
+        "2018": {
+          "trades": 10,
+          "wins": 3,
+          "win_rate_pct": 30.0,
+          "net_return_pct": 3.56
+        },
+        "2019": {
+          "trades": 10,
+          "wins": 7,
+          "win_rate_pct": 70.0,
+          "net_return_pct": 31.83
+        },
+        "2025": {
+          "trades": 4,
+          "wins": 1,
+          "win_rate_pct": 25.0,
+          "net_return_pct": -1.06
+        }
+      },
+      "positive_years": 2,
+      "total_years": 3,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "XLMUSDT",
+      "cumulative": {
+        "trades": 19,
+        "wins": 7,
+        "win_rate_pct": 36.8,
+        "net_return_pct": 23.1
+      },
+      "yearly": {
+        "2018": {
+          "trades": 2,
+          "wins": 2,
+          "win_rate_pct": 100.0,
+          "net_return_pct": 11.0
+        },
+        "2019": {
+          "trades": 13,
+          "wins": 5,
+          "win_rate_pct": 38.5,
+          "net_return_pct": 17.75
+        },
+        "2025": {
+          "trades": 4,
+          "wins": 0,
+          "win_rate_pct": 0.0,
+          "net_return_pct": -5.65
+        }
+      },
+      "positive_years": 2,
+      "total_years": 3,
+      "consistency_label": "MODERADA / EVITAR"
+    },
+    {
+      "symbol": "ETCUSDT",
+      "cumulative": {
+        "trades": 24,
+        "wins": 5,
+        "win_rate_pct": 20.8,
+        "net_return_pct": -13.06
+      },
+      "yearly": {
+        "2018": {
+          "trades": 6,
+          "wins": 1,
+          "win_rate_pct": 16.7,
+          "net_return_pct": -6.86
+        },
+        "2019": {
+          "trades": 9,
+          "wins": 1,
+          "win_rate_pct": 11.1,
+          "net_return_pct": -8.34
+        },
+        "2025": {
+          "trades": 9,
+          "wins": 3,
+          "win_rate_pct": 33.3,
+          "net_return_pct": 2.14
+        }
+      },
+      "positive_years": 1,
+      "total_years": 3,
+      "consistency_label": "MODERADA / EVITAR"
+    }
+  ]
+}
