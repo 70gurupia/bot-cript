@@ -68,6 +68,17 @@ def _load_csv_records(csv_path: Path, symbol: str) -> list:
     return records
 
 
+def _expand_to_15m(records: list) -> list:
+    """Expande cada candle de 1h em 4 candles subjacentes de 15 minutos."""
+    expanded = []
+    for sym, o_time, op, hi, lo, cl, vol in records:
+        sub_vol = vol / 4.0
+        for sub_i in range(4):
+            sub_t = o_time + (sub_i * 900000)
+            expanded.append((sym, sub_t, op, hi, lo, cl, sub_vol))
+    return expanded
+
+
 def _seed_csv_data(cursor: sqlite3.Cursor):
     """Insere dados de candles a partir dos CSVs existentes."""
     csv_files = list(DATA_DIR.glob("*_1h_2020_2024.csv"))
@@ -83,7 +94,8 @@ def _seed_csv_data(cursor: sqlite3.Cursor):
         symbol = csv_path.name.split("_")[0]
         records = _load_csv_records(csv_path, symbol)
         cursor.executemany(insert_sql_1h, records)
-        cursor.executemany(insert_sql_15m, records)
+        records_15m = _expand_to_15m(records)
+        cursor.executemany(insert_sql_15m, records_15m)
 
 
 def ensure_test_database():
@@ -97,8 +109,11 @@ def ensure_test_database():
     cursor.execute("SELECT COUNT(*) FROM klines_1h;")
     count_1h = cursor.fetchone()[0]
 
-    # Se a tabela estiver vazia ou com menos de 10.000 candles (incompleta para 2024)
-    if count_1h < 10000:
+    cursor.execute("SELECT COUNT(*) FROM klines_15m;")
+    count_15m = cursor.fetchone()[0]
+
+    # Se a tabela estiver vazia ou incompleta
+    if count_1h < 10000 or count_15m < 35000:
         cursor.execute("DELETE FROM klines_1h;")
         cursor.execute("DELETE FROM klines_15m;")
         _seed_csv_data(cursor)

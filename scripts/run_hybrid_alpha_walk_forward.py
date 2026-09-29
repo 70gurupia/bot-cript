@@ -33,7 +33,7 @@ from strategy.hybrid_alpha_engine import (
 
 DB_PATH = os.path.join(ROOT_DIR, "data", "historical", "market_data.db")
 REPORT_JSON_PATH = os.path.join(ROOT_DIR, "data", "hybrid_alpha_report.json")
-DASHBOARD_HTML_PATH = "/home/reginato/Outputs/dashboards/hybrid_alpha_dashboard.html"
+DASHBOARD_HTML_PATH = os.path.expanduser("~/Outputs/dashboards/hybrid_alpha_dashboard.html")
 
 
 def get_monthly_ranges_2024() -> List[Tuple[str, int, int]]:
