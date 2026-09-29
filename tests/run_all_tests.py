@@ -42,6 +42,7 @@ TEST_FILES = [
     ("Fase 7 / Trigonometria Adaptativa", "tests/test_trigonometric_adaptive.py"),
     ("Fase 7 / Roteador Maker & OBI", "tests/test_smart_order_router.py"),
     ("Fase 7 / Alertas Operacionais", "tests/test_operational_alerts.py"),
+    ("Fase 7 / Pipeline Alfa Unificado", "tests/test_unified_alpha_pipeline.py"),
 ]
 
 
