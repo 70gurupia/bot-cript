@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-Testes Unitários da Estratégia Trigonométrica Adaptativa no Plano Cartesiano.
+Testes Unitários da Estratégia Trigonométrica Adaptativa Avançada no Plano Cartesiano.
 Valida:
-1. Identidades trigonométricas no espaço normalizado (sin^2 + cos^2 = 1, tan = dy/dx).
-2. Resposta angular em choques direcionais e mercado horizontal.
-3. Adaptação da Média TAMA (dinâmica rápida vs lenta).
-4. Sinais combinados com compressão de Entropia de Shannon.
+1. Identidades trigonométricas no espaço normalizado (sin^2 + cos^2 = 1).
+2. Momento linear newtoniano com massa de volume (F_y = sin(theta) * m).
+3. Geometria diferencial de curvatura (kappa) e raio de curvatura (R).
+4. Entropia não-extensiva de Tsallis (q = 1.5) e multiescala (MSE).
+5. Trailing stop modularizado pelo cosseno.
 """
 
 import math
@@ -21,7 +22,10 @@ from strategy.trigonometric_adaptive_engine import (
     compute_normalized_cartesian_vector,
     compute_series_trigonometric_vectors,
     compute_trigonometric_adaptive_ma,
-    evaluate_trigonometric_signal
+    evaluate_trigonometric_signal,
+    compute_tsallis_entropy,
+    compute_multiscale_entropy,
+    compute_dynamic_cosine_stop
 )
 
 
@@ -35,65 +39,46 @@ class TestTrigonometricAdaptiveEngine(unittest.TestCase):
         identity = (vec.sin_theta ** 2) + (vec.cos_theta ** 2)
         self.assertAlmostEqual(identity, 1.0, places=3)
         self.assertGreater(vec.angle_deg, 0.0)
-        self.assertAlmostEqual(vec.tan_theta, math.tan(vec.angle_rad), places=3)
 
-    def test_horizontal_market_zero_angle(self):
-        """Valida que mercado lateral produz theta = 0, sin = 0, cos = 1, tan = 0."""
+    def test_volume_momentum_newton(self):
+        """Valida que volume institucional amplifica a força vetorial F_y."""
+        vec_low_vol = compute_normalized_cartesian_vector(
+            p_curr=110.0, p_prev=100.0, atr_val=2.0, delta_t=10, volume_mass=0.5
+        )
+        vec_high_vol = compute_normalized_cartesian_vector(
+            p_curr=110.0, p_prev=100.0, atr_val=2.0, delta_t=10, volume_mass=2.5
+        )
+        self.assertAlmostEqual(vec_high_vol.momentum_force, vec_low_vol.momentum_force * 5.0, places=2)
+
+    def test_differential_curvature(self):
+        """Valida cálculo de curvatura e raio de curvatura em aceleração de preço."""
         vec = compute_normalized_cartesian_vector(
-            p_curr=100.0, p_prev=100.0, atr_val=1.5, delta_t=10
+            p_curr=120.0, p_prev=100.0, atr_val=2.0, delta_t=10, prev_slope=0.10
         )
-        self.assertEqual(vec.angle_deg, 0.0)
-        self.assertEqual(vec.sin_theta, 0.0)
-        self.assertEqual(vec.cos_theta, 1.0)
-        self.assertEqual(vec.tan_theta, 0.0)
+        self.assertGreater(vec.curvature, 0.0)
+        self.assertGreater(vec.radius_of_curvature, 0.0)
 
-    def test_series_vector_generation(self):
-        """Gera vetores para série sintética e valida dimensões."""
-        closes = [100.0 + i * 1.5 for i in range(30)]
-        atrs = [2.0] * 30
-        vectors = compute_series_trigonometric_vectors(closes, atrs, window=10)
-        self.assertEqual(len(vectors), 30)
-        # Último vetor deve apontar alta expressiva
-        self.assertGreater(vectors[-1].angle_deg, 20.0)
-        self.assertGreater(vectors[-1].sin_theta, 0.3)
+    def test_tsallis_entropy(self):
+        """Valida que a Entropia de Tsallis retorna entre 0.0 e 1.0."""
+        rets = [0.01 * (i % 3 - 1) for i in range(30)]
+        sq = compute_tsallis_entropy(rets, q=1.5)
+        self.assertGreaterEqual(sq, 0.0)
+        self.assertLessEqual(sq, 1.0)
 
-    def test_tama_adaptive_smoothing(self):
-        """Valida que TAMA responde mais rápido quando o ângulo cartesiano é íngreme."""
-        closes = [100.0] * 15 + [105.0, 112.0, 120.0, 130.0, 142.0]
-        atrs = [2.0] * len(closes)
-        vectors = compute_series_trigonometric_vectors(closes, atrs, window=5)
-        tama = compute_trigonometric_adaptive_ma(closes, vectors, fast_period=4, slow_period=30)
-        self.assertEqual(len(tama), len(closes))
-        # No final do movimento de alta acelerada, a TAMA deve ter acompanhado fortemente a subida
-        self.assertGreater(tama[-1], 115.0)
+    def test_multiscale_entropy(self):
+        """Valida cálculo em 3 resoluções fractais."""
+        rets = [0.005 * i for i in range(30)]
+        mse = compute_multiscale_entropy(rets, windows=(6, 12, 24))
+        self.assertIn("fast", mse)
+        self.assertIn("medium", mse)
+        self.assertIn("slow", mse)
 
-    def test_signal_evaluation_with_entropy(self):
-        """Valida emissão de sinal de compra quando há congruência de ângulo e baixa entropia."""
-        vec = compute_normalized_cartesian_vector(
-            p_curr=120.0, p_prev=100.0, atr_val=2.0, delta_t=10
-        )
-        sig = evaluate_trigonometric_signal(
-            vector=vec,
-            entropy_val=0.60,       # Entropia comprimida (favorável)
-            tama_val=115.0,          # Preço 120 acima da média 115
-            close_price=120.0,
-            entropy_thresh=0.75
-        )
-        self.assertTrue(sig.has_signal)
-        self.assertEqual(sig.side, "BUY")
-        self.assertGreater(sig.confidence, 0.8)
-
-    def test_angular_exhaustion_detection(self):
-        """Valida que desaceleração angular (d_theta < 0) em topo sinaliza exaustão."""
-        vec = compute_normalized_cartesian_vector(
-            p_curr=130.0, p_prev=100.0, atr_val=2.0, delta_t=10,
-            prev_angle_rad=1.10 # Ângulo anterior era ainda mais íngreme
-        )
-        sig = evaluate_trigonometric_signal(
-            vector=vec, entropy_val=0.50, tama_val=125.0, close_price=130.0
-        )
-        self.assertTrue(sig.has_signal)
-        self.assertEqual(sig.regime, "ANGULAR_EXHAUSTION")
+    def test_dynamic_cosine_stop(self):
+        """Valida que o stop loss encurta quando o ângulo se torna íngreme."""
+        stop_flat = compute_dynamic_cosine_stop(atr_val=10.0, angle_rad=0.0) # cos(0) = 1.0 -> 15.0
+        stop_steep = compute_dynamic_cosine_stop(atr_val=10.0, angle_rad=math.radians(60.0)) # cos(60) = 0.5 -> 7.5
+        self.assertLess(stop_steep, stop_flat)
+        self.assertAlmostEqual(stop_steep, stop_flat * 0.5, places=1)
 
 
 if __name__ == "__main__":

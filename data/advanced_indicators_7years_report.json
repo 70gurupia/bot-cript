@@ -1,0 +1,282 @@
+[
+  {
+    "year": 2018,
+    "desc": "Bear Market (-82%)",
+    "eth_g1_baseline": {
+      "trades": 52,
+      "wins": 20,
+      "win_rate_pct": 38.5,
+      "net_return_pct": 27.6
+    },
+    "eth_g2_trig": {
+      "trades": 23,
+      "wins": 11,
+      "win_rate_pct": 47.8,
+      "net_return_pct": 28.2
+    },
+    "eth_g3_newton": {
+      "trades": 16,
+      "wins": 8,
+      "win_rate_pct": 50.0,
+      "net_return_pct": 26.73
+    },
+    "btc_g1_baseline": {
+      "trades": 70,
+      "wins": 13,
+      "win_rate_pct": 18.6,
+      "net_return_pct": -40.8
+    },
+    "btc_g2_trig": {
+      "trades": 31,
+      "wins": 7,
+      "win_rate_pct": 22.6,
+      "net_return_pct": -12.8
+    },
+    "btc_g3_newton": {
+      "trades": 20,
+      "wins": 5,
+      "win_rate_pct": 25.0,
+      "net_return_pct": 7.39
+    }
+  },
+  {
+    "year": 2019,
+    "desc": "Recupera\u00e7\u00e3o / Acumula\u00e7\u00e3o",
+    "eth_g1_baseline": {
+      "trades": 53,
+      "wins": 19,
+      "win_rate_pct": 35.8,
+      "net_return_pct": 22.2
+    },
+    "eth_g2_trig": {
+      "trades": 33,
+      "wins": 16,
+      "win_rate_pct": 48.5,
+      "net_return_pct": 38.8
+    },
+    "eth_g3_newton": {
+      "trades": 23,
+      "wins": 11,
+      "win_rate_pct": 47.8,
+      "net_return_pct": 36.12
+    },
+    "btc_g1_baseline": {
+      "trades": 58,
+      "wins": 11,
+      "win_rate_pct": 19.0,
+      "net_return_pct": -39.0
+    },
+    "btc_g2_trig": {
+      "trades": 34,
+      "wins": 12,
+      "win_rate_pct": 35.3,
+      "net_return_pct": 16.0
+    },
+    "btc_g3_newton": {
+      "trades": 19,
+      "wins": 8,
+      "win_rate_pct": 42.1,
+      "net_return_pct": 27.28
+    }
+  },
+  {
+    "year": 2020,
+    "desc": "Covid Crash + Bull Run",
+    "eth_g1_baseline": {
+      "trades": 43,
+      "wins": 16,
+      "win_rate_pct": 37.2,
+      "net_return_pct": 16.2
+    },
+    "eth_g2_trig": {
+      "trades": 20,
+      "wins": 12,
+      "win_rate_pct": 60.0,
+      "net_return_pct": 38.4
+    },
+    "eth_g3_newton": {
+      "trades": 8,
+      "wins": 5,
+      "win_rate_pct": 62.5,
+      "net_return_pct": 18.26
+    },
+    "btc_g1_baseline": {
+      "trades": 60,
+      "wins": 18,
+      "win_rate_pct": 30.0,
+      "net_return_pct": -3.2
+    },
+    "btc_g2_trig": {
+      "trades": 23,
+      "wins": 6,
+      "win_rate_pct": 26.1,
+      "net_return_pct": -7.8
+    },
+    "btc_g3_newton": {
+      "trades": 14,
+      "wins": 3,
+      "win_rate_pct": 21.4,
+      "net_return_pct": -0.45
+    }
+  },
+  {
+    "year": 2021,
+    "desc": "Mega Bull Market / Topo Duplo",
+    "eth_g1_baseline": {
+      "trades": 24,
+      "wins": 5,
+      "win_rate_pct": 20.8,
+      "net_return_pct": -10.4
+    },
+    "eth_g2_trig": {
+      "trades": 8,
+      "wins": 5,
+      "win_rate_pct": 62.5,
+      "net_return_pct": 16.8
+    },
+    "eth_g3_newton": {
+      "trades": 4,
+      "wins": 2,
+      "win_rate_pct": 50.0,
+      "net_return_pct": 6.85
+    },
+    "btc_g1_baseline": {
+      "trades": 37,
+      "wins": 6,
+      "win_rate_pct": 16.2,
+      "net_return_pct": -38.6
+    },
+    "btc_g2_trig": {
+      "trades": 14,
+      "wins": 6,
+      "win_rate_pct": 42.9,
+      "net_return_pct": 11.0
+    },
+    "btc_g3_newton": {
+      "trades": 8,
+      "wins": 4,
+      "win_rate_pct": 50.0,
+      "net_return_pct": 15.25
+    }
+  },
+  {
+    "year": 2022,
+    "desc": "Bear Market FTX/Luna (-65%)",
+    "eth_g1_baseline": {
+      "trades": 53,
+      "wins": 17,
+      "win_rate_pct": 32.1,
+      "net_return_pct": 6.4
+    },
+    "eth_g2_trig": {
+      "trades": 28,
+      "wins": 11,
+      "win_rate_pct": 39.3,
+      "net_return_pct": 19.0
+    },
+    "eth_g3_newton": {
+      "trades": 16,
+      "wins": 4,
+      "win_rate_pct": 25.0,
+      "net_return_pct": 4.48
+    },
+    "btc_g1_baseline": {
+      "trades": 60,
+      "wins": 17,
+      "win_rate_pct": 28.3,
+      "net_return_pct": -7.6
+    },
+    "btc_g2_trig": {
+      "trades": 30,
+      "wins": 12,
+      "win_rate_pct": 40.0,
+      "net_return_pct": 21.4
+    },
+    "btc_g3_newton": {
+      "trades": 18,
+      "wins": 7,
+      "win_rate_pct": 38.9,
+      "net_return_pct": 24.1
+    }
+  },
+  {
+    "year": 2023,
+    "desc": "Consolida\u00e7\u00e3o Pr\u00e9-ETF",
+    "eth_g1_baseline": {
+      "trades": 71,
+      "wins": 23,
+      "win_rate_pct": 32.4,
+      "net_return_pct": 7.8
+    },
+    "eth_g2_trig": {
+      "trades": 33,
+      "wins": 9,
+      "win_rate_pct": 27.3,
+      "net_return_pct": -7.4
+    },
+    "eth_g3_newton": {
+      "trades": 21,
+      "wins": 8,
+      "win_rate_pct": 38.1,
+      "net_return_pct": 26.02
+    },
+    "btc_g1_baseline": {
+      "trades": 56,
+      "wins": 17,
+      "win_rate_pct": 30.4,
+      "net_return_pct": -2.2
+    },
+    "btc_g2_trig": {
+      "trades": 32,
+      "wins": 10,
+      "win_rate_pct": 31.2,
+      "net_return_pct": 5.0
+    },
+    "btc_g3_newton": {
+      "trades": 18,
+      "wins": 8,
+      "win_rate_pct": 44.4,
+      "net_return_pct": 29.91
+    }
+  },
+  {
+    "year": 2024,
+    "desc": "Bull Market dos ETFs",
+    "eth_g1_baseline": {
+      "trades": 39,
+      "wins": 9,
+      "win_rate_pct": 23.1,
+      "net_return_pct": -13.4
+    },
+    "eth_g2_trig": {
+      "trades": 17,
+      "wins": 5,
+      "win_rate_pct": 29.4,
+      "net_return_pct": -0.6
+    },
+    "eth_g3_newton": {
+      "trades": 10,
+      "wins": 3,
+      "win_rate_pct": 30.0,
+      "net_return_pct": 8.19
+    },
+    "btc_g1_baseline": {
+      "trades": 40,
+      "wins": 9,
+      "win_rate_pct": 22.5,
+      "net_return_pct": -21.4
+    },
+    "btc_g2_trig": {
+      "trades": 17,
+      "wins": 5,
+      "win_rate_pct": 29.4,
+      "net_return_pct": -0.6
+    },
+    "btc_g3_newton": {
+      "trades": 4,
+      "wins": 2,
+      "win_rate_pct": 50.0,
+      "net_return_pct": 8.0
+    }
+  }
+]
