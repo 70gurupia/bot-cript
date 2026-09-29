@@ -1,0 +1,117 @@
+{
+  "Lead-Lag BTC->ETH": {
+    "estrategia": "Lead-Lag BTC->ETH",
+    "par": "BTCUSDT",
+    "timeframe": "15m",
+    "win_rate": 74.4,
+    "retorno": 11.91,
+    "max_dd": 1.6,
+    "linhas": 43816,
+    "mean_vol_rel": 1.026,
+    "mean_body_pct": 0.422,
+    "best_dow": "Tue",
+    "count_body_high_vol": 3241,
+    "pct_strong": 7.4,
+    "best_hour_by_body": 21,
+    "session_vol_avg": {
+      "Off": 0.863,
+      "Tóquio": 0.838,
+      "Londres": 1.276,
+      "NY": 1.097
+    },
+    "lead_lag_corr_1bar": null,
+    "nota": "Constante sugerida: body_pct > 0,6 + vol_rel > 1,3 + sessao NY (13-18h) + close > mm20 (pos_mm20 > 0). Se >50% das barras fortes atenderem, valida filtro no AST."
+  },
+  "Cash & Carry Funding": {
+    "estrategia": "Cash & Carry Funding",
+    "par": "BTCUSDT",
+    "timeframe": "8h",
+    "win_rate": 100.0,
+    "retorno": 24.57,
+    "max_dd": 0.0,
+    "linhas": 43816,
+    "mean_vol_rel": 1.026,
+    "mean_body_pct": 0.422,
+    "best_dow": "Tue",
+    "count_body_high_vol": 3241,
+    "pct_strong": 7.4,
+    "best_hour_by_body": 21,
+    "session_vol_avg": {
+      "Off": 0.863,
+      "Tóquio": 0.838,
+      "Londres": 1.276,
+      "NY": 1.097
+    },
+    "lead_lag_corr_1bar": null,
+    "nota": "Constante sugerida: body_pct > 0,6 + vol_rel > 1,3 + sessao NY (13-18h) + close > mm20 (pos_mm20 > 0). Se >50% das barras fortes atenderem, valida filtro no AST."
+  },
+  "Donchian Breakout BTC": {
+    "estrategia": "Donchian Breakout BTC",
+    "par": "BTCUSDT",
+    "timeframe": "1h",
+    "win_rate": 41.1,
+    "retorno": 42.35,
+    "max_dd": 13.2,
+    "linhas": 43816,
+    "mean_vol_rel": 1.026,
+    "mean_body_pct": 0.422,
+    "best_dow": "Tue",
+    "count_body_high_vol": 3241,
+    "pct_strong": 7.4,
+    "best_hour_by_body": 21,
+    "session_vol_avg": {
+      "Off": 0.863,
+      "Tóquio": 0.838,
+      "Londres": 1.276,
+      "NY": 1.097
+    },
+    "lead_lag_corr_1bar": null,
+    "nota": "Constante sugerida: body_pct > 0,6 + vol_rel > 1,3 + sessao NY (13-18h) + close > mm20 (pos_mm20 > 0). Se >50% das barras fortes atenderem, valida filtro no AST."
+  },
+  "RSI+Bollinger XRP": {
+    "estrategia": "RSI+Bollinger XRP",
+    "par": "XRPUSDT",
+    "timeframe": "15m",
+    "win_rate": 56.1,
+    "retorno": 35.09,
+    "max_dd": 103.3,
+    "linhas": 43816,
+    "mean_vol_rel": 1.023,
+    "mean_body_pct": 0.432,
+    "best_dow": "Tue",
+    "count_body_high_vol": 3040,
+    "pct_strong": 6.94,
+    "best_hour_by_body": 2,
+    "session_vol_avg": {
+      "Off": 0.919,
+      "Tóquio": 0.96,
+      "Londres": 1.198,
+      "NY": 0.979
+    },
+    "lead_lag_corr_1bar": null,
+    "nota": "Constante sugerida: body_pct > 0,6 + vol_rel > 1,3 + sessao NY (13-18h) + close > mm20 (pos_mm20 > 0). Se >50% das barras fortes atenderem, valida filtro no AST."
+  },
+  "RSI+Bollinger ADA": {
+    "estrategia": "RSI+Bollinger ADA",
+    "par": "ADAUSDT",
+    "timeframe": "15m",
+    "win_rate": 54.2,
+    "retorno": 14.88,
+    "max_dd": 129.9,
+    "linhas": 43816,
+    "mean_vol_rel": 1.024,
+    "mean_body_pct": 0.444,
+    "best_dow": "Tue",
+    "count_body_high_vol": 3422,
+    "pct_strong": 7.81,
+    "best_hour_by_body": 3,
+    "session_vol_avg": {
+      "Off": 0.936,
+      "Tóquio": 0.872,
+      "Londres": 1.203,
+      "NY": 1.06
+    },
+    "lead_lag_corr_1bar": null,
+    "nota": "Constante sugerida: body_pct > 0,6 + vol_rel > 1,3 + sessao NY (13-18h) + close > mm20 (pos_mm20 > 0). Se >50% das barras fortes atenderem, valida filtro no AST."
+  }
+}

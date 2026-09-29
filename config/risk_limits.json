@@ -1,0 +1,1 @@
+{"max_leverage_ceiling": 3.0, "forced_margin_type": "ISOLATED", "max_agent_daily_loss_pct": 2.0, "max_portfolio_daily_drawdown_pct": 4.0, "circuit_breaker_l2_cooling_off_hours": 24, "max_kelly_fraction": 0.25, "max_single_trade_risk_pct": 1.0, "network_timeout_seconds": 10.0, "max_open_positions_global": 10}

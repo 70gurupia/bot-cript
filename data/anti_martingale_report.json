@@ -1,0 +1,43 @@
+{
+  "title": "Analise de Viabilidade: Crescimento Exponencial R$ 10 -> R$ 10.000 em 365 Dias",
+  "parameters": {
+    "initial_bankroll_brl": 10.0,
+    "target_bankroll_brl": 10000.0,
+    "win_rate": 0.6,
+    "payoff_ratio": 1.0,
+    "simulations_count": 1000,
+    "trades_per_year": 730
+  },
+  "comparison": {
+    "flat_linear": {
+      "mode": "flat_linear",
+      "simulations": 1000,
+      "ruin_probability_pct": 0.0,
+      "target_reached_pct": 0.0,
+      "median_final_bankroll": 82.71,
+      "average_max_drawdown_pct": 89.2,
+      "best_case_bankroll": 121.71,
+      "worst_case_bankroll": 43.71
+    },
+    "anti_martingale": {
+      "mode": "anti_martingale",
+      "simulations": 1000,
+      "ruin_probability_pct": 0.2,
+      "target_reached_pct": 64.0,
+      "median_final_bankroll": 10104.68,
+      "average_max_drawdown_pct": 99.8,
+      "best_case_bankroll": 10776.07,
+      "worst_case_bankroll": 0.8
+    },
+    "fixed_fractional": {
+      "mode": "fixed_fractional",
+      "simulations": 1000,
+      "ruin_probability_pct": 0.0,
+      "target_reached_pct": 39.1,
+      "median_final_bankroll": 6081.23,
+      "average_max_drawdown_pct": 99.7,
+      "best_case_bankroll": 10493.27,
+      "worst_case_bankroll": 117.66
+    }
+  }
+}

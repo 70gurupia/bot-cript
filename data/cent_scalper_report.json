@@ -1,0 +1,47 @@
+{
+  "title": "Simulacao de Micro-Scalping de Centavos (Meta: 10 trades de R$ 0,10/dia)",
+  "asset": "BTCUSDT",
+  "timeframe": "15m",
+  "year": 2024,
+  "scenarios": {
+    "bankroll_10_brl": {
+      "initial_bankroll_brl": 10.0,
+      "final_bankroll_brl": 5.27,
+      "total_net_profit_brl": -4.73,
+      "total_return_pct": -47.3,
+      "total_days": 366,
+      "positive_days": 164,
+      "positive_days_pct": 44.8,
+      "goal_reached_days": 1,
+      "total_trades": 3113,
+      "overall_win_rate_pct": 58.8,
+      "daily_average_gain_brl": -0.01
+    },
+    "bankroll_50_brl": {
+      "initial_bankroll_brl": 50.0,
+      "final_bankroll_brl": 44.54,
+      "total_net_profit_brl": -5.46,
+      "total_return_pct": -10.92,
+      "total_days": 366,
+      "positive_days": 120,
+      "positive_days_pct": 32.8,
+      "goal_reached_days": 107,
+      "total_trades": 1265,
+      "overall_win_rate_pct": 59.5,
+      "daily_average_gain_brl": -0.01
+    },
+    "bankroll_100_brl": {
+      "initial_bankroll_brl": 100.0,
+      "final_bankroll_brl": 115.21,
+      "total_net_profit_brl": 15.21,
+      "total_return_pct": 15.21,
+      "total_days": 366,
+      "positive_days": 153,
+      "positive_days_pct": 41.8,
+      "goal_reached_days": 152,
+      "total_trades": 834,
+      "overall_win_rate_pct": 61.8,
+      "daily_average_gain_brl": 0.04
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "BTC_LeadLag_Donchian_Cash_filtro": {
+    "par": "N/A",
+    "use_filter": true,
+    "trades": 335,
+    "wins": 159,
+    "win_rate": 0.475,
+    "retorno_pct": -6.86,
+    "max_drawdown_pct": 21.96,
+    "capital_final": 93.14,
+    "media_pnl_pos": -0.0001
+  },
+  "BTC_LeadLag_Donchian_Cash_semfiltro": {
+    "par": "N/A",
+    "use_filter": false,
+    "trades": 21908,
+    "wins": 11215,
+    "win_rate": 0.512,
+    "retorno_pct": 1203.83,
+    "max_drawdown_pct": 96.18,
+    "capital_final": 1303.83,
+    "media_pnl_pos": 0.0002
+  },
+  "ETH_LeadLag_filtro": {
+    "par": "N/A",
+    "use_filter": true,
+    "trades": 335,
+    "wins": 164,
+    "win_rate": 0.49,
+    "retorno_pct": 24.05,
+    "max_drawdown_pct": 35.51,
+    "capital_final": 124.05,
+    "media_pnl_pos": 0.0007
+  },
+  "ETH_LeadLag_semfiltro": {
+    "par": "N/A",
+    "use_filter": false,
+    "trades": 21908,
+    "wins": 11267,
+    "win_rate": 0.514,
+    "retorno_pct": 2490.04,
+    "max_drawdown_pct": 98.01,
+    "capital_final": 2590.04,
+    "media_pnl_pos": 0.0002
+  }
+}

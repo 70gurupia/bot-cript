@@ -1,0 +1,52 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Ambientes virtuais
+venv/
+.venv/
+env/
+ENV/
+
+# Arquivos de ambiente e segredos
+.env
+.env.*
+*.pem
+*.key
+*.cert
+
+# Testes e cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs e auditoria em tempo de execução
+*.log
+data/logs/*.jsonl
+data/logs/*.log
+
+# Bancos de dados locais pesados e transitórios (>100MB)
+*.db
+*.sqlite
+*.sqlite3
+data/historical/*.db
+
+# IDEs e editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
