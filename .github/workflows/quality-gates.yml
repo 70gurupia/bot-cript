@@ -1,4 +1,4 @@
-name: 🛡️ Quality & Security Gates
+name: Quality and Security Gates
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
     branches: [ main, master ]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: quality-gates-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   audit-gates:
-    name: Central Quality & Security Gates
+    name: Central Quality and Security Gates
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -40,7 +40,7 @@ jobs:
       - name: Gate 3: Cyclomatic Complexity
         run: python3 scripts/gates/gate-complexity.py . 10
 
-      - name: Gate 4: Dependency Structure & Cycles
+      - name: Gate 4: Dependency Structure and Cycles
         run: python3 scripts/gates/gate-dep-structure.py .
 
       - name: Gate 5: SAST Security OWASP
