@@ -23,6 +23,7 @@ ENV/
 *.pem
 *.key
 *.cert
+!scripts/gates/*.py
 
 # Testes e cobertura
 .pytest_cache/
