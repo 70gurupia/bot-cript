@@ -1,0 +1,83 @@
+{
+  "year": 2025,
+  "donchian_btc": {
+    "trades": 161,
+    "wins": 59,
+    "win_rate_pct": 36.6,
+    "net_return_pct": -23.7
+  },
+  "lead_lag_eth": {
+    "trades": 0,
+    "wins": 0,
+    "win_rate_pct": 0.0,
+    "net_return_pct": 0.0
+  },
+  "pair_evaluations": {
+    "ETHUSDT": {
+      "candles": 8760,
+      "g1_baseline": {
+        "trades": 45,
+        "wins": 13,
+        "win_rate_pct": 28.9,
+        "net_return_pct": -6.0
+      },
+      "g3_newton": {
+        "trades": 12,
+        "wins": 4,
+        "win_rate_pct": 33.3,
+        "net_return_pct": 8.45
+      }
+    },
+    "BTCUSDT": {
+      "candles": 8760,
+      "g1_baseline": {
+        "trades": 46,
+        "wins": 17,
+        "win_rate_pct": 37.0,
+        "net_return_pct": 20.4
+      },
+      "g3_newton": {
+        "trades": 14,
+        "wins": 3,
+        "win_rate_pct": 21.4,
+        "net_return_pct": 6.56
+      }
+    },
+    "BNBUSDT": {
+      "candles": 8760,
+      "g1_baseline": {
+        "trades": 25,
+        "wins": 9,
+        "win_rate_pct": 36.0,
+        "net_return_pct": 9.0
+      },
+      "g3_newton": {
+        "trades": 8,
+        "wins": 3,
+        "win_rate_pct": 37.5,
+        "net_return_pct": 10.79
+      }
+    },
+    "SOLUSDT": {
+      "candles": 8760,
+      "g1_baseline": {
+        "trades": 24,
+        "wins": 7,
+        "win_rate_pct": 29.2,
+        "net_return_pct": -1.6
+      },
+      "g3_newton": {
+        "trades": 7,
+        "wins": 1,
+        "win_rate_pct": 14.3,
+        "net_return_pct": -5.13
+      }
+    }
+  },
+  "bankroll_simulation": {
+    "initial_bankroll_brl": 500.0,
+    "final_bankroll_brl": 2427.5,
+    "vault_locked_brl": 1250.0,
+    "liquid_bankroll_brl": 1177.5
+  }
+}
