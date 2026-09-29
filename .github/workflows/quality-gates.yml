@@ -13,10 +13,44 @@ concurrency:
 jobs:
   audit-gates:
     name: Central Quality & Security Gates
-    uses: 70gurupia/quality-gates/.github/workflows/reusable-gates.yml@main
-    with:
-      max_complexity: '10'
-      check_secrets: true
-      check_dependencies: true
-      check_cleanliness: true
-      post_pr_comment: true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Gate 0: Repository Cleanliness
+        run: python3 scripts/gates/gate-cleanliness.py .
+
+      - name: Gate 1: Secrets Scanner
+        run: python3 scripts/gates/gate-secrets.py .
+
+      - name: Gate 2: Dependency Pinning
+        run: python3 scripts/gates/gate-dependencies.py .
+
+      - name: Gate 3: Cyclomatic Complexity
+        run: python3 scripts/gates/gate-complexity.py . 10
+
+      - name: Gate 4: Dependency Structure & Cycles
+        run: python3 scripts/gates/gate-dep-structure.py .
+
+      - name: Gate 5: SAST Security OWASP
+        run: python3 scripts/gates/gate-sast.py .
+
+      - name: Gate 6: PR Quality Reporter
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          POST_PR_COMMENT: 'true'
+        run: python3 scripts/gates/gate-pr-reporter.py . --post-comment
