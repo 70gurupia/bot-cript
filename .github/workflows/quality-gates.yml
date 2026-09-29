@@ -28,25 +28,25 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Gate 0: Repository Cleanliness
+      - name: "Gate 0: Repository Cleanliness"
         run: python3 scripts/gates/gate-cleanliness.py .
 
-      - name: Gate 1: Secrets Scanner
+      - name: "Gate 1: Secrets Scanner"
         run: python3 scripts/gates/gate-secrets.py .
 
-      - name: Gate 2: Dependency Pinning
+      - name: "Gate 2: Dependency Pinning"
         run: python3 scripts/gates/gate-dependencies.py .
 
-      - name: Gate 3: Cyclomatic Complexity
+      - name: "Gate 3: Cyclomatic Complexity"
         run: python3 scripts/gates/gate-complexity.py . 10
 
-      - name: Gate 4: Dependency Structure and Cycles
+      - name: "Gate 4: Dependency Structure and Cycles"
         run: python3 scripts/gates/gate-dep-structure.py .
 
-      - name: Gate 5: SAST Security OWASP
+      - name: "Gate 5: SAST Security OWASP"
         run: python3 scripts/gates/gate-sast.py .
 
-      - name: Gate 6: PR Quality Reporter
+      - name: "Gate 6: PR Quality Reporter"
         if: always() && github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
