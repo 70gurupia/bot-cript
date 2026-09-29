@@ -39,6 +39,7 @@ TEST_FILES = [
     ("Segurança / AST Engine", "tests/test_ast_security.py"),
     ("Fase 6/7 / Loop Assíncrono", "tests/test_event_loop.py"),
     ("Fase 7 / Entropia & Log-Returns", "tests/test_entropy_compounding.py"),
+    ("Fase 7 / Trigonometria Adaptativa", "tests/test_trigonometric_adaptive.py"),
 ]
 
 
