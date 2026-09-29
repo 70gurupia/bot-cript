@@ -143,7 +143,7 @@ class ExchangeAdapter:
         """Obtém candles OHLCV públicos normalizados."""
         self.record_heartbeat()
         
-        if self._ccxt_instance is None:
+        if self._ccxt_instance is None or self.paper_trading:
             # Retorna dados sintéticos determinísticos para testes
             now_ms = int(time.time() * 1000)
             mock_candles = []

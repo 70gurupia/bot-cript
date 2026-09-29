@@ -73,6 +73,7 @@ def test_normalized_market_data():
     # Cada candle deve ter [timestamp, open, high, low, close, volume]
     assert len(candles[0]) == 6
     
+    loop.run_until_complete(adapter.close())
     loop.close()
 
 
@@ -94,6 +95,7 @@ def test_order_submission_in_paper_mode():
             margin_type="ISOLATED"
         )
     )
+    loop.run_until_complete(adapter.close())
     loop.close()
     
     assert res["success"] is True

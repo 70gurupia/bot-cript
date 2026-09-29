@@ -148,7 +148,21 @@ def calculate_month_funding(start_ms: int, end_ms: int, funding_capital: float, 
     return round(funding_capital * rate_8h * settlements, 2)
 
 
-def run_hybrid_walk_forward(cfg: HybridAlphaConfig) -> Dict[str, Any]:
+def export_reports(data: Dict[str, Any]) -> Tuple[str, str]:
+    """Exporta relatorio JSON e dashboard HTML interativo garantindo a criacao dos diretorios."""
+    os.makedirs(os.path.dirname(REPORT_JSON_PATH), exist_ok=True)
+    with open(REPORT_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+    os.makedirs(os.path.dirname(DASHBOARD_HTML_PATH), exist_ok=True)
+    html_content = generate_html_dashboard(data)
+    with open(DASHBOARD_HTML_PATH, "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+    return REPORT_JSON_PATH, DASHBOARD_HTML_PATH
+
+
+def run_hybrid_walk_forward(cfg: HybridAlphaConfig, save_artifacts: bool = True) -> Dict[str, Any]:
     """Executa a simulacao completa mês a mês dos 12 meses de 2024."""
     conn = sqlite3.connect(DB_PATH)
     ranges = get_monthly_ranges_2024()
@@ -204,7 +218,7 @@ def run_hybrid_walk_forward(cfg: HybridAlphaConfig) -> Dict[str, Any]:
     overall_win_rate = round((total_wins / total_trades * 100.0), 1) if total_trades > 0 else 0.0
     projections = compute_daily_projections(total_ret_pct, cfg.usd_brl_rate)
 
-    return {
+    res = {
         "title": "Motor Hibrido: Funding Rate + Price Action Sessao NY (LINK, BNB, SOL)",
         "year": 2024,
         "initial_capital_usd": cfg.initial_balance_usd,
@@ -216,6 +230,11 @@ def run_hybrid_walk_forward(cfg: HybridAlphaConfig) -> Dict[str, Any]:
         "monthly_reports": [r.__dict__ for r in monthly_reports],
         "projections": projections.__dict__
     }
+
+    if save_artifacts:
+        export_reports(res)
+
+    return res
 
 
 def generate_html_dashboard(data: Dict[str, Any]) -> str:
@@ -439,22 +458,12 @@ def main():
     print("WALK-FORWARD MÊS A MÊS: MOTOR HÍBRIDO (FUNDING + PRICE ACTION)")
     print("==================================================================")
     cfg = HybridAlphaConfig()
-    data = run_hybrid_walk_forward(cfg)
+    data = run_hybrid_walk_forward(cfg, save_artifacts=True)
 
-    # 1. Salvar JSON
-    os.makedirs(os.path.dirname(REPORT_JSON_PATH), exist_ok=True)
-    with open(REPORT_JSON_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
     print(f"[OK] Relatório JSON salvo em: {REPORT_JSON_PATH}")
-
-    # 2. Salvar Dashboard HTML
-    os.makedirs(os.path.dirname(DASHBOARD_HTML_PATH), exist_ok=True)
-    html_content = generate_html_dashboard(data)
-    with open(DASHBOARD_HTML_PATH, "w", encoding="utf-8") as f:
-        f.write(html_content)
     print(f"[OK] Dashboard visual salvo em: {DASHBOARD_HTML_PATH}")
 
-    # 3. Resumo no terminal
+    # Resumo no terminal
     print("\nRESUMO EXECUTIVO DO MOTOR HÍBRIDO (2024):")
     print(f"  - Capital Inicial: ${data['initial_capital_usd']:,.2f}")
     print(f"  - Capital Final:   ${data['final_capital_usd']:,.2f} ({data['total_return_pct']:+.2f}%)")
