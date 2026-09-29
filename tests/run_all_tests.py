@@ -38,6 +38,7 @@ TEST_FILES = [
     ("Fase 7 / Avaliador Laia", "tests/test_laia_entry_evaluator.py"),
     ("Segurança / AST Engine", "tests/test_ast_security.py"),
     ("Fase 6/7 / Loop Assíncrono", "tests/test_event_loop.py"),
+    ("Fase 7 / Entropia & Log-Returns", "tests/test_entropy_compounding.py"),
 ]
 
 
