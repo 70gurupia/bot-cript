@@ -1,0 +1,240 @@
+{
+  "period": "2026-H1",
+  "macro_overview": [
+    {
+      "symbol": "BTCUSDT",
+      "candles_1h": 4344,
+      "open_price": 87648.21,
+      "close_price": 58624.71,
+      "change_pct": -33.11,
+      "high_max": 97924.49,
+      "low_min": 58115.01,
+      "amplitude_pct": 40.65
+    },
+    {
+      "symbol": "ETHUSDT",
+      "candles_1h": 4344,
+      "open_price": 2971.65,
+      "close_price": 1572.01,
+      "change_pct": -47.1,
+      "high_max": 3402.89,
+      "low_min": 1505.68,
+      "amplitude_pct": 55.75
+    },
+    {
+      "symbol": "SOLUSDT",
+      "candles_1h": 4344,
+      "open_price": 124.64,
+      "close_price": 73.67,
+      "change_pct": -40.89,
+      "high_max": 148.74,
+      "low_min": 60.13,
+      "amplitude_pct": 59.57
+    },
+    {
+      "symbol": "BNBUSDT",
+      "candles_1h": 4344,
+      "open_price": 864.31,
+      "close_price": 546.52,
+      "change_pct": -36.77,
+      "high_max": 959.52,
+      "low_min": 540.6,
+      "amplitude_pct": 43.66
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "candles_1h": 4344,
+      "open_price": 0.1175,
+      "close_price": 0.0721,
+      "change_pct": -38.64,
+      "high_max": 0.1566,
+      "low_min": 0.0695,
+      "amplitude_pct": 55.6
+    },
+    {
+      "symbol": "XRPUSDT",
+      "candles_1h": 4344,
+      "open_price": 1.8424,
+      "close_price": 1.0401,
+      "change_pct": -43.55,
+      "high_max": 2.4172,
+      "low_min": 1.0092,
+      "amplitude_pct": 58.25
+    },
+    {
+      "symbol": "ADAUSDT",
+      "candles_1h": 4344,
+      "open_price": 0.3336,
+      "close_price": 0.1444,
+      "change_pct": -56.71,
+      "high_max": 0.4374,
+      "low_min": 0.1382,
+      "amplitude_pct": 68.4
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "candles_1h": 4344,
+      "open_price": 12.32,
+      "close_price": 6.538,
+      "change_pct": -46.93,
+      "high_max": 14.95,
+      "low_min": 5.681,
+      "amplitude_pct": 62.0
+    },
+    {
+      "symbol": "LINKUSDT",
+      "candles_1h": 4344,
+      "open_price": 12.2,
+      "close_price": 7.201,
+      "change_pct": -40.98,
+      "high_max": 14.4,
+      "low_min": 6.996,
+      "amplitude_pct": 51.42
+    },
+    {
+      "symbol": "DOTUSDT",
+      "candles_1h": 4344,
+      "open_price": 1.789,
+      "close_price": 0.822,
+      "change_pct": -54.05,
+      "high_max": 2.343,
+      "low_min": 0.795,
+      "amplitude_pct": 66.07
+    }
+  ],
+  "lead_lag_results": {
+    "targets": {
+      "ETHUSDT": {
+        "trades": 1,
+        "wins": 0,
+        "win_rate_pct": 0.0,
+        "total_pnl_pct": -0.41,
+        "trades_list": [
+          {
+            "time": 1768491900000,
+            "symbol": "ETHUSDT",
+            "side": "BUY",
+            "win": false,
+            "pnl": -0.004149340218876244
+          }
+        ]
+      },
+      "SOLUSDT": {
+        "trades": 1,
+        "wins": 1,
+        "win_rate_pct": 100.0,
+        "total_pnl_pct": 1.6,
+        "trades_list": [
+          {
+            "time": 1770336900000,
+            "symbol": "SOLUSDT",
+            "side": "BUY",
+            "win": true,
+            "pnl": 0.01599999999999992
+          }
+        ]
+      },
+      "AVAXUSDT": {
+        "trades": 0,
+        "wins": 0,
+        "win_rate_pct": 0.0,
+        "total_pnl_pct": 0.0,
+        "trades_list": []
+      },
+      "LINKUSDT": {
+        "trades": 1,
+        "wins": 0,
+        "win_rate_pct": 0.0,
+        "total_pnl_pct": -0.11,
+        "trades_list": [
+          {
+            "time": 1770441300000,
+            "symbol": "LINKUSDT",
+            "side": "SELL",
+            "win": false,
+            "pnl": -0.0011198208286673894
+          }
+        ]
+      },
+      "DOGEUSDT": {
+        "trades": 0,
+        "wins": 0,
+        "win_rate_pct": 0.0,
+        "total_pnl_pct": 0.0,
+        "trades_list": []
+      }
+    },
+    "consolidated_trades": 3,
+    "consolidated_wins": 1,
+    "win_rate_pct": 33.3,
+    "total_pnl_pct": 1.08
+  },
+  "micro_capital_compounding": [
+    {
+      "month": "2026-01",
+      "trades": 1,
+      "wins": 0,
+      "win_rate_pct": 0.0,
+      "equity_initial_brl": 500.0,
+      "bankroll_active_brl": 460.0,
+      "vault_locked_brl": 0.0,
+      "total_equity_brl": 460.0,
+      "monthly_return_pct": -8.0
+    },
+    {
+      "month": "2026-02",
+      "trades": 2,
+      "wins": 1,
+      "win_rate_pct": 50.0,
+      "equity_initial_brl": 460.0,
+      "bankroll_active_brl": 490.91,
+      "vault_locked_brl": 0.0,
+      "total_equity_brl": 490.91,
+      "monthly_return_pct": 6.72
+    },
+    {
+      "month": "2026-03",
+      "trades": 0,
+      "wins": 0,
+      "win_rate_pct": 0.0,
+      "equity_initial_brl": 490.91,
+      "bankroll_active_brl": 490.91,
+      "vault_locked_brl": 0.0,
+      "total_equity_brl": 490.91,
+      "monthly_return_pct": 0.0
+    },
+    {
+      "month": "2026-04",
+      "trades": 0,
+      "wins": 0,
+      "win_rate_pct": 0.0,
+      "equity_initial_brl": 490.91,
+      "bankroll_active_brl": 490.91,
+      "vault_locked_brl": 0.0,
+      "total_equity_brl": 490.91,
+      "monthly_return_pct": 0.0
+    },
+    {
+      "month": "2026-05",
+      "trades": 0,
+      "wins": 0,
+      "win_rate_pct": 0.0,
+      "equity_initial_brl": 490.91,
+      "bankroll_active_brl": 490.91,
+      "vault_locked_brl": 0.0,
+      "total_equity_brl": 490.91,
+      "monthly_return_pct": 0.0
+    },
+    {
+      "month": "2026-06",
+      "trades": 0,
+      "wins": 0,
+      "win_rate_pct": 0.0,
+      "equity_initial_brl": 490.91,
+      "bankroll_active_brl": 490.91,
+      "vault_locked_brl": 0.0,
+      "total_equity_brl": 490.91,
+      "monthly_return_pct": 0.0
+    }
+  ]
+}

@@ -1,22 +1,22 @@
 {
-  "timestamp_utc": 1790768121773,
+  "timestamp_utc": 1790770240576,
   "total_gates": 9,
   "passed_gates": 9,
   "failed_gates": 0,
   "all_passed": true,
-  "total_duration_sec": 16.79,
+  "total_duration_sec": 24.16,
   "results": [
     {
       "id": "GATE_0",
       "name": "Limpeza do Repositorio",
       "passed": true,
-      "duration_sec": 0.068
+      "duration_sec": 0.066
     },
     {
       "id": "GATE_1",
       "name": "Varredura de Segredos e Chaves",
       "passed": true,
-      "duration_sec": 14.36
+      "duration_sec": 22.212
     },
     {
       "id": "GATE_2",
@@ -28,37 +28,37 @@
       "id": "GATE_3",
       "name": "Complexidade Ciclomatica (max 10)",
       "passed": true,
-      "duration_sec": 1.303
+      "duration_sec": 0.725
     },
     {
       "id": "GATE_4",
       "name": "Estrutura Modular e Sem Ciclos",
       "passed": true,
-      "duration_sec": 0.049
+      "duration_sec": 0.063
     },
     {
       "id": "GATE_5",
       "name": "Varredura SAST OWASP",
       "passed": true,
-      "duration_sec": 0.387
+      "duration_sec": 0.298
     },
     {
       "id": "GATE_6",
       "name": "NLP: Sem Travessao e Gramatica pt-BR",
       "passed": true,
-      "duration_sec": 0.08
+      "duration_sec": 0.115
     },
     {
       "id": "GATE_7",
       "name": "Invariantes Financeiros e Limites de Risco",
       "passed": true,
-      "duration_sec": 0.081
+      "duration_sec": 0.094
     },
     {
       "id": "GATE_8",
       "name": "Evals Deterministicos de IA e Estrategias",
       "passed": true,
-      "duration_sec": 0.393
+      "duration_sec": 0.516
     }
   ]
 }

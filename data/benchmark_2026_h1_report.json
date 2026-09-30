@@ -1,0 +1,126 @@
+{
+  "period": "2026-H1",
+  "market_regime": "Bear Market (-33% a -56% Buy and Hold)",
+  "group_stats": [
+    {
+      "group": "G1_G3_BTC (Newtoniano 15m)",
+      "trades": 453,
+      "wins": 169,
+      "win_rate_pct": 37.3,
+      "total_r": -42.33
+    },
+    {
+      "group": "G2_G3_ETH (Newtoniano 15m)",
+      "trades": 0,
+      "wins": 0,
+      "win_rate_pct": 0.0,
+      "total_r": 0
+    },
+    {
+      "group": "G3_LEAD_LAG_MULTI (Lead-Lag 15m)",
+      "trades": 9,
+      "wins": 5,
+      "win_rate_pct": 55.6,
+      "total_r": 7.3
+    },
+    {
+      "group": "G4_TTM_SQUEEZE (DOGE Squeeze 1h)",
+      "trades": 384,
+      "wins": 155,
+      "win_rate_pct": 40.4,
+      "total_r": -0.15
+    },
+    {
+      "group": "G5_DONCH_SOL_AVAX (Tendencia 1h)",
+      "trades": 251,
+      "wins": 83,
+      "win_rate_pct": 33.1,
+      "total_r": -12.83
+    },
+    {
+      "group": "G6_DONCH_DOT_LINK (Tendencia 1h)",
+      "trades": 233,
+      "wins": 90,
+      "win_rate_pct": 38.6,
+      "total_r": 12.93
+    },
+    {
+      "group": "G7_TREND_BNB (Tendencia 1h)",
+      "trades": 137,
+      "wins": 55,
+      "win_rate_pct": 40.1,
+      "total_r": 14.24
+    },
+    {
+      "group": "G8_FUNDING_RATE (Carry Trade 8h)",
+      "trades": 543,
+      "wins": 543,
+      "win_rate_pct": 100.0,
+      "total_r": 244.35
+    }
+  ],
+  "swarm_flotilha_stats": {
+    "total_trades": 2010,
+    "win_rate_pct": 54.7,
+    "initial_capital_usd": 10000.0,
+    "final_equity_usd": 21853.41,
+    "net_return_pct": 118.53,
+    "max_drawdown_pct": 16.41
+  },
+  "monthly_micro_compounding": [
+    {
+      "month": "2026-01 (Jan)",
+      "trades": 138,
+      "hit_target": true,
+      "vault_locked_brl": 1250.0,
+      "active_bankroll_brl": 1769.1,
+      "total_equity_brl": 3019.1,
+      "net_return_pct": 503.82
+    },
+    {
+      "month": "2026-02 (Fev)",
+      "trades": 127,
+      "hit_target": true,
+      "vault_locked_brl": 1250.0,
+      "active_bankroll_brl": 2028.24,
+      "total_equity_brl": 3278.24,
+      "net_return_pct": 555.65
+    },
+    {
+      "month": "2026-03 (Mar)",
+      "trades": 137,
+      "hit_target": true,
+      "vault_locked_brl": 1250.0,
+      "active_bankroll_brl": 1939.36,
+      "total_equity_brl": 3189.36,
+      "net_return_pct": 537.87
+    },
+    {
+      "month": "2026-04 (Abr)",
+      "trades": 131,
+      "hit_target": true,
+      "vault_locked_brl": 1250.0,
+      "active_bankroll_brl": 1796.04,
+      "total_equity_brl": 3046.04,
+      "net_return_pct": 509.21
+    },
+    {
+      "month": "2026-05 (Mai)",
+      "trades": 136,
+      "hit_target": true,
+      "vault_locked_brl": 1250.0,
+      "active_bankroll_brl": 1891.39,
+      "total_equity_brl": 3141.39,
+      "net_return_pct": 528.28
+    },
+    {
+      "month": "2026-06 (Jun)",
+      "trades": 141,
+      "hit_target": true,
+      "vault_locked_brl": 1250.0,
+      "active_bankroll_brl": 1758.27,
+      "total_equity_brl": 3008.27,
+      "net_return_pct": 501.65
+    }
+  ]
+}
