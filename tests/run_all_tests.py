@@ -46,6 +46,7 @@ TEST_FILES = [
     ("Fase 7 / Motor Matricial Alpha", "tests/test_cross_sectional_matrix.py"),
     ("Fase 7 / Flotilha 40 Bots & Paper", "tests/test_swarm_paper_trading.py"),
     ("Fase 7 / Motores de Alto Win Rate", "tests/test_high_winrate_engines.py"),
+    ("Fase 7 / Alocador Kelly & Streamer L2", "tests/test_portfolio_allocator_and_streamer.py"),
 ]
 
 

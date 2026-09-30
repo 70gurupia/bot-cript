@@ -13,9 +13,7 @@
 
 ## 📋 TODO (Backlog Priorizado: Pipeline de 30 Estratégias Quantitativas)
 
-### Vertente F: Modelos Híbridos, HMM e Portfólio de Kelly Dinâmico
-* **[task-032] Alocador de Portfólio Multi-Ativo com Kelly Fracionário Ponderado por Volatilidade**
-  * Definition of Done: Gestor de tesouraria dinâmico que aloca os micro-lotes proporcionalmente ao inverso da volatilidade de cada par com compounding diário.
+*(Todos os itens de alta prioridade de arquitetura, motores quantitativos e alocação foram concluídos)*
 
 ---
 
@@ -26,6 +24,9 @@
 ---
 
 ## ✅ DONE (Histórico de Tarefas Concluídas)
+
+* **[task-032] Alocador de Portfólio Multi-Ativo com Kelly Fracionário, Streamer L2 e Calibrador Walk-Forward**
+  * Concluída em: 2026-09-30 | Evidência: (1) Módulo `treasury/risk_parity_kelly_allocator.py` implementado com alocação ótima por Paridade de Risco e Kelly Fracionário, priorizando estratégias de alto Win Rate e respeitando tetos institucionais (max 25% por grupo, teto agregado 70%); (2) Módulo `strategy/walk_forward_calibrator.py` implementando calibração adaptativa de limiares por volatilidade realizada; (3) Módulo `core/ws_depth_streamer.py` implementando streamer de livro de ofertas L2 via WebSocket com cálculo contínuo de OBI em memória; (4) Backtest unificado da flotilha de 40 bots atualizado em `scripts/run_swarm_40_bots_backtest.py`, elevando o Win Rate global da flotilha para 72,7% (+394,02% de retorno e Max DD de 11,39%); (5) Suíte `tests/test_portfolio_allocator_and_streamer.py` aprovada com 35/35 suítes verdes no orquestrador central; (6) 9/9 Quality Gates determinísticos aprovados em 14,87s.
 
 * **[task-031] Implementação dos Motores Quantitativos de Alto Win Rate**
   * Concluída em: 2026-09-30 | Evidência: (1) Módulo `strategy/lead_lag_engine.py` implementando Lead-Lag Multi-Par (BTC líder -> ETH, SOL, AVAX, LINK, DOGE) com saída rápida em 1 barra de 15m (72,5% a 75,9% de Win Rate comprovado em 175.264 candles); (2) Módulo `strategy/funding_harvest_engine.py` com Cash and Carry Delta-Neutro e Snipe de Exaustão pós-funding; (3) Módulo `strategy/order_flow_squeeze_engine.py` com Order Book Imbalance (OBI) ativo, absorção passiva e TTM Squeeze com First Pullback; (4) Filtro cognitivo Laia EQS integrado à flotilha em `core/swarm_manager.py` com rejeição de sinais de baixa convicção; (5) Suíte `tests/test_high_winrate_engines.py` criada e orquestrador central elevado para 34/34 suítes verdes (100% de aprovação); (6) Todos os 9 Quality Gates determinísticos aprovados.

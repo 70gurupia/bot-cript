@@ -40,7 +40,7 @@ jobs:
       - name: Security scan with bandit
         run: bandit -r core/ strategy/ evolution/ treasury/ monitoring/ config/ -ll -ii || true
 
-      - name: Run Full Test Suite (34/34 Suites)
+      - name: Run Full Test Suite (35/35 Suites)
         run: python3 tests/run_all_tests.py
 
       - name: Run Deterministic Quality Gates

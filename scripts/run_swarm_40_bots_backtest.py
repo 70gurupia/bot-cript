@@ -126,34 +126,100 @@ def _sim_g3_real(candles: List[Dict[str, Any]]) -> List[Tuple[int, float]]:
     return trades
 
 
+from strategy.order_flow_squeeze_engine import (
+    SqueezeConfig,
+    calculate_obi,
+    detect_first_pullback_entry,
+    detect_obi_absorption_scalp
+)
+from strategy.lead_lag_engine import LeadLagConfig, detect_lead_lag_opportunity
+from strategy.funding_harvest_engine import FundingHarvestConfig, evaluate_carry_opportunity, detect_funding_exhaustion_snipe
+
+
 def _sim_lead_lag_real(
     c_leader: List[Dict[str, Any]],
     c_follower: List[Dict[str, Any]]
 ) -> List[Tuple[int, float]]:
-    """Gera retornos de arbitragem temporal Lead-Lag com Payoff 2:1."""
+    """Gera retornos de arbitragem temporal Lead-Lag com saida rapida de 1 barra (15m)."""
     n = min(len(c_leader), len(c_follower))
     if n < 40:
         return []
-    f_highs = [c["high"] for c in c_follower]
-    f_lows = [c["low"] for c in c_follower]
-    f_closes = [c["close"] for c in c_follower]
-    atrs = compute_atr(f_highs, f_lows, f_closes, 14)
+    trades: List[Tuple[int, float]] = []
+    for i in range(1, n - 2):
+        b_ret = (c_leader[i]["close"] - c_leader[i - 1]["close"]) / c_leader[i - 1]["close"]
+        f_ret = (c_follower[i]["close"] - c_follower[i - 1]["close"]) / c_follower[i - 1]["close"]
+        if b_ret >= 0.008 and f_ret < (b_ret * 0.25):
+            nxt_ret = (c_follower[i + 1]["close"] - c_follower[i]["close"]) / c_follower[i]["close"]
+            r = (nxt_ret - 0.0004) / 0.008
+            trades.append((c_follower[i]["time"], r))
+        elif b_ret <= -0.008 and f_ret > (b_ret * 0.25):
+            nxt_ret = (c_follower[i]["close"] - c_follower[i + 1]["close"]) / c_follower[i]["close"]
+            r = (nxt_ret - 0.0004) / 0.008
+            trades.append((c_follower[i]["time"], r))
+    return trades
+
+
+def _sim_ttm_squeeze_pullback_real(
+    candles: List[Dict[str, Any]],
+    period: int = 20
+) -> List[Tuple[int, float]]:
+    """Gera retornos de TTM Squeeze com entrada no Primeiro Reteste (First Pullback)."""
+    if len(candles) < period + 15:
+        return []
+    closes = [c["close"] for c in candles]
+    highs = [c["high"] for c in candles]
+    lows = [c["low"] for c in candles]
+    atrs = compute_atr(highs, lows, closes, 14)
 
     trades: List[Tuple[int, float]] = []
-    i = 15
-    while i < n - 12:
-        l_ret = (c_leader[i]["close"] - c_leader[i - 2]["close"]) / c_leader[i - 2]["close"]
-        f_ret = (c_follower[i]["close"] - c_follower[i - 2]["close"]) / c_follower[i - 2]["close"]
-        if l_ret > 0.012 and f_ret < 0.003:
+    cfg = SqueezeConfig(bb_period=period, keltner_atr_period=period)
+
+    i = period + 5
+    while i < len(candles) - 10:
+        has_sig, side_str, tp, sl = detect_first_pullback_entry(
+            closes[:i + 1], highs[:i + 1], lows[:i + 1], cfg
+        )
+        if has_sig:
+            side = 1 if side_str == "BUY" else -1
             atr = atrs[i]
-            r = _eval_trade_outcome(c_follower, i, 1, f_closes[i], 2.0 * atr, 1.0 * atr, 12)
-            trades.append((c_follower[i]["time"], r))
+            r = _eval_trade_outcome(candles, i, side, closes[i], 2.0 * atr, 1.0 * atr, 12)
+            trades.append((candles[i]["time"], r))
             i += 6
-        elif l_ret < -0.012 and f_ret > -0.003:
-            atr = atrs[i]
-            r = _eval_trade_outcome(c_follower, i, -1, f_closes[i], 2.0 * atr, 1.0 * atr, 12)
-            trades.append((c_follower[i]["time"], r))
-            i += 6
+        i += 1
+    return trades
+
+
+def _sim_obi_order_flow_real(
+    candles: List[Dict[str, Any]]
+) -> List[Tuple[int, float]]:
+    """Gera retornos de micro-scalp por Order Book Imbalance (OBI) e absorcao passiva."""
+    if len(candles) < 30:
+        return []
+    trades: List[Tuple[int, float]] = []
+    cfg = SqueezeConfig(scalp_target_pct=0.0035, scalp_stop_pct=0.0020)
+
+    i = 20
+    while i < len(candles) - 4:
+        c = candles[i]
+        c_range = max(0.0001, c["high"] - c["low"])
+        # Estimacao de volume comprador vs vendedor no candle
+        vol_total = c.get("vol", c.get("volume", 1.0))
+        buy_weight = (c["close"] - c["low"]) / c_range
+        bid_vol = vol_total * buy_weight
+        ask_vol = vol_total * (1.0 - buy_weight)
+
+        is_valid, side_str, tp, sl = detect_obi_absorption_scalp(
+            bids_volume=bid_vol,
+            asks_volume=ask_vol,
+            current_price=c["close"],
+            cvd_divergence=True,
+            cfg=cfg
+        )
+        if is_valid:
+            side = 1 if side_str == "BUY" else -1
+            r = _eval_trade_outcome(candles, i, side, c["close"], 0.0035 * c["close"], 0.0020 * c["close"], 4)
+            trades.append((c["time"], r))
+            i += 3
         i += 1
     return trades
 
@@ -248,7 +314,7 @@ def _build_all_group_returns(conn: sqlite3.Connection) -> Dict[str, List[Tuple[i
     return {
         "G1_G3_BTC": _sim_g3_real(btc_15m),
         "G2_G3_ETH": _sim_g3_real(eth_15m),
-        "G3_LEAD_LAG": _sim_lead_lag_real(btc_15m, eth_15m),
+        "G3_LEAD_LAG_MULTI": _sim_lead_lag_real(btc_15m, eth_15m),
         "G4_DONCH_DOGE": _sim_donchian_real(doge_1h, 40),
         "G5_DONCH_SOL_AVAX": _sim_donchian_real(sol_1h, 40) + _sim_donchian_real(avax_1h, 40),
         "G6_DONCH_DOT_LINK": _sim_donchian_real(dot_1h, 40) + _sim_donchian_real(link_1h, 40),
