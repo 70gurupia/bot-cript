@@ -12,6 +12,8 @@ from core.paper_exchange import PaperTradingExchange
 from core.logger import telemetry
 
 
+from strategy.laia_entry_evaluator import LaiaEntryEvaluator
+
 GROUP_DEFINITIONS = [
     {
         "group_id": "G1",
@@ -31,7 +33,7 @@ GROUP_DEFINITIONS = [
     },
     {
         "group_id": "G3",
-        "name": "G3_LEAD_LAG",
+        "name": "G3_LEAD_LAG_MULTI",
         "strategy": "LEAD_LAG_ARBITRAGE",
         "symbol": "ETHUSDT",
         "timeframe": "15m",
@@ -39,40 +41,40 @@ GROUP_DEFINITIONS = [
     },
     {
         "group_id": "G4",
-        "name": "G4_DONCH_DOGE",
-        "strategy": "DONCHIAN_BREAKOUT",
+        "name": "G4_TTM_SQUEEZE_PULLBACK",
+        "strategy": "TTM_SQUEEZE_PULLBACK",
         "symbol": "DOGEUSDT",
         "timeframe": "1h",
         "bot_indices": range(16, 21)
     },
     {
         "group_id": "G5",
-        "name": "G5_DONCH_SOL_AVAX",
-        "strategy": "DONCHIAN_BREAKOUT",
+        "name": "G5_OBI_ORDER_FLOW_SCALP",
+        "strategy": "OBI_ORDER_FLOW_SCALP",
         "symbol": "SOLUSDT",
-        "timeframe": "1h",
+        "timeframe": "15m",
         "bot_indices": range(21, 26)
     },
     {
         "group_id": "G6",
-        "name": "G6_DONCH_DOT_LINK",
-        "strategy": "DONCHIAN_BREAKOUT",
+        "name": "G6_OBI_ORDER_FLOW_SCALP",
+        "strategy": "OBI_ORDER_FLOW_SCALP",
         "symbol": "DOTUSDT",
-        "timeframe": "1h",
+        "timeframe": "15m",
         "bot_indices": range(26, 31)
     },
     {
         "group_id": "G7",
-        "name": "G7_TREND_TRX_BNB",
-        "strategy": "TREND_FOLLOWING",
+        "name": "G7_TREND_LAIA_CONFLUENCE",
+        "strategy": "TREND_FOLLOWING_LAIA",
         "symbol": "BNBUSDT",
         "timeframe": "1h",
         "bot_indices": range(31, 36)
     },
     {
         "group_id": "G8",
-        "name": "G8_FUNDING_RATE",
-        "strategy": "FUNDING_CARRY_TRADE",
+        "name": "G8_FUNDING_CARRY_SNIPE",
+        "strategy": "FUNDING_CARRY_SNIPE",
         "symbol": "BTCUSDT",
         "timeframe": "8h",
         "bot_indices": range(36, 41)
@@ -130,13 +132,15 @@ class SwarmManager:
     def __init__(
         self,
         exchange: Optional[PaperTradingExchange] = None,
-        initial_balance_usd: float = 10000.0
+        initial_balance_usd: float = 10000.0,
+        min_laia_score: float = 65.0
     ):
         self.exchange = exchange or PaperTradingExchange(initial_balance_usd=initial_balance_usd)
         self.bots: Dict[str, SubBotState] = {}
         self.initial_balance_usd = initial_balance_usd
         self.peak_equity = initial_balance_usd
         self.max_drawdown_pct = 0.0
+        self.laia_evaluator = LaiaEntryEvaluator(min_quality_score=min_laia_score)
         self._init_swarm_bots()
 
     def _init_swarm_bots(self):
@@ -156,6 +160,37 @@ class SwarmManager:
     def get_bot(self, bot_id: str) -> Optional[SubBotState]:
         """Retorna o estado do sub-bot especificado."""
         return self.bots.get(bot_id)
+
+    def evaluate_entry_with_laia(
+        self,
+        bot_id: str,
+        btc_return_15m: float,
+        alt_return_15m: float,
+        hour_utc: int,
+        funding_rate: float = 0.0001,
+        alt_volume_ratio: float = 1.0
+    ) -> Dict[str, Any]:
+        """Avalia uma oportunidade de entrada com o modelo Laia EQS."""
+        bot = self.bots.get(bot_id)
+        if not bot:
+            return {"allowed": False, "score": 0.0, "reason": "Bot inexistente."}
+
+        res = self.laia_evaluator.evaluate_entry(
+            symbol=bot.symbol,
+            btc_return_15m=btc_return_15m,
+            alt_return_15m=alt_return_15m,
+            hour_utc=hour_utc,
+            funding_rate=funding_rate,
+            alt_volume_ratio=alt_volume_ratio,
+            is_mechanical_signal_active=True
+        )
+        return {
+            "allowed": res.entry_quality_score >= self.laia_evaluator.min_quality_score,
+            "score": res.entry_quality_score,
+            "action": res.action,
+            "risk_mode": res.risk_mode,
+            "reasons": res.reasons
+        }
 
     def _update_drawdown(self, current_equity: float):
         """Atualiza a metrica de drawdown maximo da flotilha."""
@@ -194,12 +229,29 @@ class SwarmManager:
         price: float,
         amount: float,
         order_type: str = "LIMIT",
-        leverage: float = 1.0
+        leverage: float = 1.0,
+        laia_filter_context: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
-        """Despacha uma ordem para a Paper Exchange em nome do sub-bot."""
+        """Despacha uma ordem para a Paper Exchange em nome do sub-bot com filtro opcional Laia."""
         bot = self.bots.get(bot_id)
         if not bot or not bot.is_active:
             return {"success": False, "reason": f"Sub-bot {bot_id} inativo ou inexistente."}
+
+        # Filtro de alta probabilidade cognitivo Laia EQS
+        if laia_filter_context:
+            laia_res = self.evaluate_entry_with_laia(
+                bot_id=bot_id,
+                btc_return_15m=laia_filter_context.get("btc_return_15m", 0.0),
+                alt_return_15m=laia_filter_context.get("alt_return_15m", 0.0),
+                hour_utc=laia_filter_context.get("hour_utc", 12),
+                funding_rate=laia_filter_context.get("funding_rate", 0.0001),
+                alt_volume_ratio=laia_filter_context.get("alt_volume_ratio", 1.0)
+            )
+            if not laia_res["allowed"]:
+                return {
+                    "success": False,
+                    "reason": f"Filtro Laia EQS rejeitou entrada (Score: {laia_res['score']:.1f} < {self.laia_evaluator.min_quality_score:.1f})."
+                }
 
         order_res = self.exchange.create_order(
             agent_id=bot_id,
