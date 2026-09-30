@@ -1,11 +1,11 @@
-# Análise Profunda — Estratégia Win (Lead-Lag BTC→ETH)
+# Análise Profunda : Estratégia Win (Lead-Lag BTC→ETH)
 Caminho: /home/reginato/Projetos/bot-cript/analysis/analise_profunda_estrategia_win.md
 Base: data/strategies_benchmark_report.json (Lead-Lag BTC->ETH: 39 trades, 74,4% win, PF 4,32, DD 1,6%, +11,91%)
 
 ## 1. O que foi win (evidência)
 - Par: BTC líder, ETH seguidor, 15m.
 - 29 vitórias / 39 trades; lucro líquido +11,91%; drawdown máximo 1,6% (muito baixo); PF 4,32.
-- Conclusão: a entrada não é aleatória — há lead temporal real.
+- Conclusão: a entrada não é aleatória : há lead temporal real.
 
 ## 2. Correlações profunda (fórmulas do projeto)
 Arquivo: treasury/correlation_matrix.py
@@ -24,7 +24,7 @@ Arquivo: strategy/laia_entry_evaluator.py; report: data/laia_entry_comparison_re
 Métricas a extrair de cada trade vencedor:
 - EQS (Entry Quality Score): volume relativo, posição no canal de Bollinger, acumulação institucional oculta.
 - Filtro de falsos rompimentos: se o preço retestou 0,618 do impulso antes de confirmar.
-- Regime macro: supervisor_loop.py (multiplicador_exposicao 0,5-1,0) — só operar quando regime != PAUSA_DEFENSIVA.
+- Regime macro: supervisor_loop.py (multiplicador_exposicao 0,5-1,0) : só operar quando regime != PAUSA_DEFENSIVA.
 
 Proposta: rodar laia_entry_evaluator.py sobre cada candle do período 2024 dos pares BTC/ETH para gerar score por entrada.
 

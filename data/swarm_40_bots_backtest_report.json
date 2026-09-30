@@ -50,11 +50,11 @@
       "name": "20 Bots (4 Grupos: BTC, ETH, Lead-Lag, DOGE)",
       "stats": {
         "total_bots": 20,
-        "total_trades": 149,
-        "win_rate_pct": 43.0,
-        "final_capital_brl": 16312.75,
-        "net_return_pct": 63.13,
-        "max_drawdown_pct": 12.75,
+        "total_trades": 152,
+        "win_rate_pct": 42.8,
+        "final_capital_brl": 16425.25,
+        "net_return_pct": 64.25,
+        "max_drawdown_pct": 12.66,
         "slippage_r_penalty": 0.0
       }
     },
@@ -62,10 +62,10 @@
       "name": "40 Bots (8 Grupos Completos em Paralelo)",
       "stats": {
         "total_bots": 40,
-        "total_trades": 1966,
-        "win_rate_pct": 73.0,
-        "final_capital_brl": 87775.03,
-        "net_return_pct": 777.75,
+        "total_trades": 1987,
+        "win_rate_pct": 72.8,
+        "final_capital_brl": 49283.67,
+        "net_return_pct": 392.84,
         "max_drawdown_pct": 11.39,
         "slippage_r_penalty": 0.0
       }

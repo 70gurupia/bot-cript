@@ -9,10 +9,10 @@
       "net_return_pct": 27.6
     },
     "eth_trigonometric": {
-      "trades": 19,
-      "wins": 8,
-      "win_rate_pct": 42.1,
-      "net_return_pct": 14.8
+      "trades": 23,
+      "wins": 11,
+      "win_rate_pct": 47.8,
+      "net_return_pct": 28.2
     },
     "btc_baseline": {
       "trades": 70,
@@ -21,10 +21,10 @@
       "net_return_pct": -40.8
     },
     "btc_trigonometric": {
-      "trades": 19,
+      "trades": 31,
       "wins": 7,
-      "win_rate_pct": 36.8,
-      "net_return_pct": 9.0
+      "win_rate_pct": 22.6,
+      "net_return_pct": -12.8
     },
     "banca_baseline": {
       "initial_bankroll_brl": 500.0,
@@ -34,9 +34,9 @@
     },
     "banca_trigonometric": {
       "initial_bankroll_brl": 500.0,
-      "final_bankroll_brl": 827.5,
-      "vault_locked_brl": 200.0,
-      "liquid_bankroll_brl": 627.5
+      "final_bankroll_brl": 1092.5,
+      "vault_locked_brl": 450.0,
+      "liquid_bankroll_brl": 642.5
     }
   },
   {
@@ -49,10 +49,10 @@
       "net_return_pct": 22.2
     },
     "eth_trigonometric": {
-      "trades": 22,
-      "wins": 12,
-      "win_rate_pct": 54.5,
-      "net_return_pct": 35.0
+      "trades": 33,
+      "wins": 16,
+      "win_rate_pct": 48.5,
+      "net_return_pct": 38.8
     },
     "btc_baseline": {
       "trades": 58,
@@ -61,10 +61,10 @@
       "net_return_pct": -39.0
     },
     "btc_trigonometric": {
-      "trades": 25,
-      "wins": 8,
-      "win_rate_pct": 32.0,
-      "net_return_pct": 10.2
+      "trades": 34,
+      "wins": 12,
+      "win_rate_pct": 35.3,
+      "net_return_pct": 16.0
     },
     "banca_baseline": {
       "initial_bankroll_brl": 500.0,
@@ -74,9 +74,9 @@
     },
     "banca_trigonometric": {
       "initial_bankroll_brl": 500.0,
-      "final_bankroll_brl": 1320.0,
-      "vault_locked_brl": 450.0,
-      "liquid_bankroll_brl": 870.0
+      "final_bankroll_brl": 1415.0,
+      "vault_locked_brl": 800.0,
+      "liquid_bankroll_brl": 615.0
     }
   },
   {
@@ -89,10 +89,10 @@
       "net_return_pct": 16.2
     },
     "eth_trigonometric": {
-      "trades": 7,
-      "wins": 4,
-      "win_rate_pct": 57.1,
-      "net_return_pct": 12.0
+      "trades": 20,
+      "wins": 12,
+      "win_rate_pct": 60.0,
+      "net_return_pct": 38.4
     },
     "btc_baseline": {
       "trades": 60,
@@ -101,10 +101,10 @@
       "net_return_pct": -3.2
     },
     "btc_trigonometric": {
-      "trades": 16,
-      "wins": 5,
-      "win_rate_pct": 31.2,
-      "net_return_pct": -2.4
+      "trades": 23,
+      "wins": 6,
+      "win_rate_pct": 26.1,
+      "net_return_pct": -7.8
     },
     "banca_baseline": {
       "initial_bankroll_brl": 500.0,
@@ -114,9 +114,9 @@
     },
     "banca_trigonometric": {
       "initial_bankroll_brl": 500.0,
-      "final_bankroll_brl": 755.0,
-      "vault_locked_brl": 0.0,
-      "liquid_bankroll_brl": 755.0
+      "final_bankroll_brl": 1400.0,
+      "vault_locked_brl": 450.0,
+      "liquid_bankroll_brl": 950.0
     }
   },
   {
@@ -129,10 +129,10 @@
       "net_return_pct": -10.4
     },
     "eth_trigonometric": {
-      "trades": 7,
-      "wins": 2,
-      "win_rate_pct": 28.6,
-      "net_return_pct": -2.4
+      "trades": 8,
+      "wins": 5,
+      "win_rate_pct": 62.5,
+      "net_return_pct": 16.8
     },
     "btc_baseline": {
       "trades": 37,
@@ -141,10 +141,10 @@
       "net_return_pct": -38.6
     },
     "btc_trigonometric": {
-      "trades": 9,
-      "wins": 3,
-      "win_rate_pct": 33.3,
-      "net_return_pct": 1.4
+      "trades": 14,
+      "wins": 6,
+      "win_rate_pct": 42.9,
+      "net_return_pct": 11.0
     },
     "banca_baseline": {
       "initial_bankroll_brl": 500.0,
@@ -154,9 +154,9 @@
     },
     "banca_trigonometric": {
       "initial_bankroll_brl": 500.0,
-      "final_bankroll_brl": 457.5,
+      "final_bankroll_brl": 842.5,
       "vault_locked_brl": 0.0,
-      "liquid_bankroll_brl": 457.5
+      "liquid_bankroll_brl": 842.5
     }
   },
   {
@@ -169,10 +169,10 @@
       "net_return_pct": 6.4
     },
     "eth_trigonometric": {
-      "trades": 14,
-      "wins": 5,
-      "win_rate_pct": 35.7,
-      "net_return_pct": 6.6
+      "trades": 28,
+      "wins": 11,
+      "win_rate_pct": 39.3,
+      "net_return_pct": 19.0
     },
     "btc_baseline": {
       "trades": 60,
@@ -181,10 +181,10 @@
       "net_return_pct": -7.6
     },
     "btc_trigonometric": {
-      "trades": 18,
-      "wins": 6,
-      "win_rate_pct": 33.3,
-      "net_return_pct": 7.0
+      "trades": 30,
+      "wins": 12,
+      "win_rate_pct": 40.0,
+      "net_return_pct": 21.4
     },
     "banca_baseline": {
       "initial_bankroll_brl": 500.0,
@@ -194,9 +194,9 @@
     },
     "banca_trigonometric": {
       "initial_bankroll_brl": 500.0,
-      "final_bankroll_brl": 602.5,
-      "vault_locked_brl": 0.0,
-      "liquid_bankroll_brl": 602.5
+      "final_bankroll_brl": 892.5,
+      "vault_locked_brl": 450.0,
+      "liquid_bankroll_brl": 442.5
     }
   },
   {
@@ -209,10 +209,10 @@
       "net_return_pct": 7.8
     },
     "eth_trigonometric": {
-      "trades": 23,
-      "wins": 7,
-      "win_rate_pct": 30.4,
-      "net_return_pct": -2.0
+      "trades": 33,
+      "wins": 9,
+      "win_rate_pct": 27.3,
+      "net_return_pct": -7.4
     },
     "btc_baseline": {
       "trades": 56,
@@ -221,10 +221,10 @@
       "net_return_pct": -2.2
     },
     "btc_trigonometric": {
-      "trades": 20,
-      "wins": 6,
-      "win_rate_pct": 30.0,
-      "net_return_pct": -2.0
+      "trades": 32,
+      "wins": 10,
+      "win_rate_pct": 31.2,
+      "net_return_pct": 5.0
     },
     "banca_baseline": {
       "initial_bankroll_brl": 500.0,
@@ -234,9 +234,9 @@
     },
     "banca_trigonometric": {
       "initial_bankroll_brl": 500.0,
-      "final_bankroll_brl": 540.0,
+      "final_bankroll_brl": 455.0,
       "vault_locked_brl": 200.0,
-      "liquid_bankroll_brl": 340.0
+      "liquid_bankroll_brl": 255.0
     }
   },
   {
@@ -249,10 +249,10 @@
       "net_return_pct": -13.4
     },
     "eth_trigonometric": {
-      "trades": 12,
+      "trades": 17,
       "wins": 5,
-      "win_rate_pct": 41.7,
-      "net_return_pct": 10.0
+      "win_rate_pct": 29.4,
+      "net_return_pct": -0.6
     },
     "btc_baseline": {
       "trades": 40,
@@ -261,10 +261,10 @@
       "net_return_pct": -21.4
     },
     "btc_trigonometric": {
-      "trades": 7,
-      "wins": 1,
-      "win_rate_pct": 14.3,
-      "net_return_pct": -8.2
+      "trades": 17,
+      "wins": 5,
+      "win_rate_pct": 29.4,
+      "net_return_pct": -0.6
     },
     "banca_baseline": {
       "initial_bankroll_brl": 500.0,
@@ -274,9 +274,9 @@
     },
     "banca_trigonometric": {
       "initial_bankroll_brl": 500.0,
-      "final_bankroll_brl": 682.5,
+      "final_bankroll_brl": 482.5,
       "vault_locked_brl": 0.0,
-      "liquid_bankroll_brl": 682.5
+      "liquid_bankroll_brl": 482.5
     }
   }
 ]

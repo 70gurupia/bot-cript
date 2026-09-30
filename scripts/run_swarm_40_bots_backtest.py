@@ -188,9 +188,10 @@ def _eval_donch_entry(
 
 def _sim_donchian_real(
     candles: List[Dict[str, Any]],
-    period: int = 40
+    period: int = 40,
+    max_gap_ms: int = 7200000
 ) -> List[Tuple[int, float]]:
-    """Gera retornos normalizados em R para Donchian 40 com filtro matricial."""
+    """Gera retornos normalizados em R para Donchian 40 com protecao de continuidade."""
     if len(candles) < period + 20:
         return []
     trades: List[Tuple[int, float]] = []
@@ -198,6 +199,16 @@ def _sim_donchian_real(
 
     for i in range(period + 1, len(candles) - 1):
         c = candles[i]
+        prev_c = candles[i - 1]
+
+        # Encerra posicao compulsoriamente se houver descontinuidade de dados historicos
+        if in_pos and (c["time"] - prev_c["time"]) > max_gap_ms:
+            pnl_pct = (prev_c["close"] - ep) / ep if side == 1 else (ep - prev_c["close"]) / ep
+            r_mult = round(pnl_pct / 0.025, 2)
+            trades.append((entry_t, r_mult))
+            in_pos = False
+            continue
+
         dh = max(r["high"] for r in candles[i - period:i])
         dl = min(r["low"] for r in candles[i - period:i])
 

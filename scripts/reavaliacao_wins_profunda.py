@@ -10,7 +10,7 @@ import json, math
 from pathlib import Path
 #!/usr/bin/env python3
 """
-Reavaliação profunda de casos win (todos do benchmark 2024) — Python puro (sem numpy/pandas).
+Reavaliação profunda de casos win (todos do benchmark 2024) : Python puro (sem numpy/pandas).
 Lê CSV manualmente, calcula indicadores por candle, busca constantes.
 """
 import csv, json, math

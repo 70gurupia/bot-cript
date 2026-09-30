@@ -44,6 +44,7 @@ TEST_FILES = [
     ("Fase 7 / Alertas Operacionais", "tests/test_operational_alerts.py"),
     ("Fase 7 / Pipeline Alfa Unificado", "tests/test_unified_alpha_pipeline.py"),
     ("Fase 7 / Motor Matricial Alpha", "tests/test_cross_sectional_matrix.py"),
+    ("Fase 7 / Flotilha 40 Bots & Paper", "tests/test_swarm_paper_trading.py"),
 ]
 
 

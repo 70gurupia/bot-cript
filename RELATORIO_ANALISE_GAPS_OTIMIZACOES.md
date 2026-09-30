@@ -1,4 +1,4 @@
-# Relatório de Análise — Bot Cripto (`bot-cript`)
+# Relatório de Análise : Bot Cripto (`bot-cript`)
 
 **Caminho:** `/home/reginato/Projetos/bot-cript/`
 **Data:** 2026-09-29
@@ -15,7 +15,7 @@ Entretanto, há **gaps operacionais críticos** em autenticação do dashboard, 
 
 ---
 
-## 2. Segurança & Infraestrutura — Pontos Fortes
+## 2. Segurança & Infraestrutura : Pontos Fortes
 
 - **STRIDE documentado** com mitigação por controle (Spoofing: TLS 1.3 + HMAC; Tampering: proibição `eval/exec`; Repudiation: SQLite audit + hash de estado; Information Disclosure: regex de sanitização; DoS: Leaky Bucket + profundidade AST max 8; Elevation: separação física `PaperTradingExchange`).
 - **Kill Switch** (`core/kill_switch.py`): persistência atômica (`tempfile.NamedTemporaryFile` + `os.replace`), recuperação de boot (`verify_boot_state`), níveis L1 (agente), L2 (portfólio global, 24h cooling-off), L3 (heartbeat > 10s).
@@ -26,7 +26,7 @@ Entretanto, há **gaps operacionais críticos** em autenticação do dashboard, 
 
 ---
 
-## 3. Segurança — Gaps Críticos (Prioridade Alta)
+## 3. Segurança : Gaps Críticos (Prioridade Alta)
 
 | # | Gap | Impacto | Local / Evidência | Sugestão |
 |---|-----|---------|-------------------|----------|
@@ -39,7 +39,7 @@ Entretanto, há **gaps operacionais críticos** em autenticação do dashboard, 
 
 ---
 
-## 4. Motor Genético & Evolução — Pontos Fortes
+## 4. Motor Genético & Evolução : Pontos Fortes
 
 - **Crossover** (`evolution/crossover_engine.py`): seleção por torneio restrita aos 20% melhores (`elite_pool` de até `max(2, int(len(sorted_pop)*0.20))`); garantia de parentes distintos com até 5 tentativas.
 - **Mutação paramétrica** (`mutate_constant_value`): `random.gauss(0.0, mutation_rate)` (padrão 8%); `mutate_ast_constants` percorre recursivamente; parâmetros de risco (`MIN_STOP_LOSS_PCT` 0.5% a `MAX_STOP_LOSS_PCT` 5.0%; `MIN_TAKE_PROFIT_PCT` 1.0% a `MAX_TAKE_PROFIT_PCT` 15.0%; `MIN_ATR_STOP_MULT` 1.0 a `MAX_ATR_STOP_MULT` 4.0) são clampados por `_clamp()`.
@@ -48,27 +48,27 @@ Entretanto, há **gaps operacionais críticos** em autenticação do dashboard, 
 
 ---
 
-## 5. Motor Genético — Gaps (Prioridade Alta/Média)
+## 5. Motor Genético : Gaps (Prioridade Alta/Média)
 
 | # | Gap | Impacto | Local | Sugestão |
 |---|-----|---------|-------|----------|
-| G1 | **Crossover não valida consistência semântica de tipos** | Pode gerar `ConditionNode` com `operator="maior"` mas `left` tipo `DataNode` e `right` tipo `ConstantNode(bool)` — sintaticamente válido, semanticamente quebrado | `evolution/crossover_engine.py`: `_pick_one()` retorna `StrategyAST` sem verificação de `type(left)` vs `type(right)` | Adicionar validador `validate_ast_semantics(node)` que verifica se comparações são entre `DataNode`/`IndicatorNode` e `ConstantNode` numérico |
+| G1 | **Crossover não valida consistência semântica de tipos** | Pode gerar `ConditionNode` com `operator="maior"` mas `left` tipo `DataNode` e `right` tipo `ConstantNode(bool)` : sintaticamente válido, semanticamente quebrado | `evolution/crossover_engine.py`: `_pick_one()` retorna `StrategyAST` sem verificação de `type(left)` vs `type(right)` | Adicionar validador `validate_ast_semantics(node)` que verifica se comparações são entre `DataNode`/`IndicatorNode` e `ConstantNode` numérico |
 | G2 | **Mutação não determinística (sem seed)** | `random.gauss` sem `random.seed()` implica que testes de mutação podem falhar de forma não reprodutível, dificultando regressão | `mutate_constant_value()` | Adicionar `seed` opcional (`mutate_constant_value(val, rate, seed=None)`); se `seed` definido, chamar `random.seed(seed)` antes da perturbação |
 | G3 | **Sem controle de memória/população crescent** | Incubadora limita clones ativos (20), mas `candidates` é `Dict[str, CandidateAgent]` com histórico completo; pode crescer indefinidamente se não houver limpeza de `ELIMINATED` | `evolution/incubator_manager.py`: `candidates` nunca é limpo | Implementar `prune_eliminated()` que remove candidatos `ELIMINATED` com mais de 30 dias; ou usar `sqlite` para persistência externa |
 | G4 | **Não há testes de segurança do AST** | Sem regressão contra injeção; se `ConstantNode.value` receber string maliciosa que passa pelo regex (ex: `"open\n"` com newline escapado), pode ocorrer comportamento inesperado | Nenhum arquivo de segurança do AST | Criar `tests/test_ast_security.py` com verificação de `_check_string_safety` contra 20+ vetores |
 
 ---
 
-## 6. Tesouraria & Risco — Pontos Fortes
+## 6. Tesouraria & Risco : Pontos Fortes
 
 - **Kelly fracionário** (`treasury/treasury_controller.py`): `calculate_fractional_kelly` com `fractional_kelly=0.20`; se `win_rate <= 0` ou `win_loss_ratio <= 0`, retorna `0.0`; `min(kelly_full * 0.20, 0.20)` impede ruína.
 - **Dimensionamento** (`calculate_position_size`): combina Kelly, trava de risco (`max_single_trade_risk_pct=1.0`), teto por ativo (`max_single_asset_exposure_pct=0.25`) e teto de exposição agregada (`max_portfolio_exposure_pct=0.70`).
-- **Correlação** (`treasury/correlation_matrix.py` — não lido completamente, mas referenciado): `AssetCorrelationTracker` usado no `TreasuryController`; pressupõe atualização contínua.
+- **Correlação** (`treasury/correlation_matrix.py` : não lido completamente, mas referenciado): `AssetCorrelationTracker` usado no `TreasuryController`; pressupõe atualização contínua.
 - **Configuração** (`config/risk_limits.json` + `settings.py`): limites invariantes (`max_leverage_ceiling=3.0`, `max_agent_daily_loss_pct=2.0`, `max_portfolio_daily_drawdown_pct=4.0`, `max_kelly_fraction=0.25`, `max_single_trade_risk_pct=1.0`).
 
 ---
 
-## 7. Tesouraria — Gaps (Prioridade Média)
+## 7. Tesouraria : Gaps (Prioridade Média)
 
 | # | Gap | Impacto | Sugestão |
 |---|-----|---------|----------|
@@ -78,15 +78,15 @@ Entretanto, há **gaps operacionais críticos** em autenticação do dashboard, 
 
 ---
 
-## 8. Monitoramento, Dashboard & Interface — Pontos Fortes
+## 8. Monitoramento, Dashboard & Interface : Pontos Fortes
 
 - **Dashboard** (`monitoring/web_app.py`): endpoints `/api/status`, `/api/incubator`, `/api/panic`; exibe `total_equity`, `cash_balance`, `open_positions_count`, `market_regime`, estado do circuit breaker.
 - **Telegram** (`monitoring/telegram_service.py`): comandos `/status`, `/panic`, `/kill`, `/resume`, `/confirm`; autenticação por `authorized_chat_ids`; registro de acesso não autorizado via `telemetry.emit_event`.
-- **Prototype** (`prototype/index.html`): arquivo HTML de 21.658 bytes — provavelmente interface interativa completa.
+- **Prototype** (`prototype/index.html`): arquivo HTML de 21.658 bytes : provavelmente interface interativa completa.
 
 ---
 
-## 9. Monitoramento — Gaps (Prioridade Alta/Média)
+## 9. Monitoramento : Gaps (Prioridade Alta/Média)
 
 | # | Gap | Impacto | Sugestão |
 |---|-----|---------|----------|
@@ -96,7 +96,7 @@ Entretanto, há **gaps operacionais críticos** em autenticação do dashboard, 
 
 ---
 
-## 10. Testes, Validação & Qualidade — Pontos Fortes
+## 10. Testes, Validação & Qualidade : Pontos Fortes
 
 - **Suíte existente:** `tests/test_anti_martingale.py` (Kelly, Monte Carlo), testes de `laia_entry_evaluator` (24/24 verdes), `test_strategy_catalog_tester` (23/23 verdes), `test_mixed_portfolio` (22/22 verdes).
 - **Benchmark 2024:** `scripts/run_strategy_catalog_benchmark.py` gerou `data/strategies_benchmark_report.json` com 6 famílias; `run_mixed_portfolio_backtest.py` com 4 frentes; `run_hybrid_alpha_walk_forward.py`; `run_laia_entry_comparison.py`.
@@ -104,7 +104,7 @@ Entretanto, há **gaps operacionais críticos** em autenticação do dashboard, 
 
 ---
 
-## 11. Testes — Gaps (Prioridade Alta)
+## 11. Testes : Gaps (Prioridade Alta)
 
 | # | Gap | Impacto | Sugestão |
 |---|-----|---------|----------|
@@ -115,22 +115,22 @@ Entretanto, há **gaps operacionais críticos** em autenticação do dashboard, 
 
 ---
 
-## 12. Dados, Logs & Integridade — Pontos Fortes
+## 12. Dados, Logs & Integridade : Pontos Fortes
 
-- **Histórico:** 10 pares (BTC, ETH, BNB, SOL, ADA, LINK, DOT, AVAX, XRP, DOGE) em 1h (`420.929 candles`) e 15m (`350.528 candles`) — `data/historical/`.
+- **Histórico:** 10 pares (BTC, ETH, BNB, SOL, ADA, LINK, DOT, AVAX, XRP, DOGE) em 1h (`420.929 candles`) e 15m (`350.528 candles`) : `data/historical/`.
 - **Banco SQLite:** `data/historical/market_data.db` (provavelmente indexado).
 - **Auditoria:** `data/logs/bot_audit.jsonl` com 2.587 registros; eventos `CIRCUIT_BREAKER_L2_TRIGGERED` (drawdown 5%, patrônio de 10.000 → 9.500) e `BOOT_COOLING_OFF_RESTORED` (24h); reset manual autorizado; formato JSON estrito com `timestamp_utc`, `level`, `logger`, `message`, `event`, `agent_id`, `payload`.
 - **Relatórios:** `data/anti_martingale_report.json`, `cent_scalper_report.json`, `hybrid_alpha_report.json`, `mixed_portfolio_report.json`, `walk_forward_report.json`, `strategies_benchmark_report.json`, `laia_entry_comparison_report.json`.
 
 ---
 
-## 13. Dados, Logs — Gaps (Prioridade Média)
+## 13. Dados, Logs : Gaps (Prioridade Média)
 
 | # | Gap | Impacto | Sugestão |
 |---|-----|---------|----------|
 | D1 | **Log não rotacionado** | 2.587 linhas podem crescer rapidamente em operação contínua; risco de consumo de disco | Implementar `RotatingFileHandler` ou `logrotate`; ou escrever para `sqlite` com limite de linhas (ex: 50.000) |
 | D2 | **Sem verificação de integridade dos CSV** | Arquivos históricos (`ADAUSDT_1h_...`) podem ser corrompidos por download parcial | Gerar `sha256` para cada CSV; armazenar em `data/historical/checksums.txt`; validar no boot |
-| D3 | **Dados sintéticos no adapter quando CCXT falha** | Se `ccxt` estiver indisponível, `fetch_ohlcv_normalized` retorna candles sintéticos com preços fixos — pode mascarar falha real de rede | Logar evento `SYNTHETIC_DATA_USED` com `symbol` e `count`; alertar usuário via Telegram |
+| D3 | **Dados sintéticos no adapter quando CCXT falha** | Se `ccxt` estiver indisponível, `fetch_ohlcv_normalized` retorna candles sintéticos com preços fixos : pode mascarar falha real de rede | Logar evento `SYNTHETIC_DATA_USED` com `symbol` e `count`; alertar usuário via Telegram |
 
 ---
 

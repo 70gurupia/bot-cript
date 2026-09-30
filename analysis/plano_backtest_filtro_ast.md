@@ -10,12 +10,12 @@ Base: constantes_wins.json + ast_engine.py
 Adicionar `ConditionNode` que só libera ordem se:
 - `DataNode("volume")` relativo > 1,3 (vol_rel)
 - `DataNode("body_pct")` > 0,6 (corpo da vela > 60% do range)
-- `DataNode("session")` == "NY" (para BTC) ou "Londres" (para XRP/ADA) — ou usar `DataNode("hour_utc")` entre 13-18
+- `DataNode("session")` == "NY" (para BTC) ou "Londres" (para XRP/ADA) : ou usar `DataNode("hour_utc")` entre 13-18
 - `DataNode("close")` > `DataNode("mm20")` (posição positiva)
 - `DataNode("day_of_week")` == "Tue" (opcional, se quiser restringir)
 
 ## Como fazer o backtest
-1. Rodar `scripts/reavaliacao_wins_profunda.py` (já feito — gerou constantes).
+1. Rodar `scripts/reavaliacao_wins_profunda.py` (já feito : gerou constantes).
 2. Editar `strategy/ast_engine.py`: criar `FilterNode` ou adicionar `ConditionNode` com operadores `maior`, `dentro_canal`, `cruzamento_alta` usando as variáveis novas.
 3. Executar `scripts/run_walk_forward_backtest.py` (ou criar `scripts/run_backtest_com_filtro.py`) usando dados 2024 como treino e 2025/2026 como validação.
 4. Comparar resultados: win_rate deve subir (meta: > 80% para Lead-Lag, > 45% para Donchian), DD deve cair (meta: < 4,5%).

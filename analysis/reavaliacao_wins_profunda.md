@@ -4,14 +4,14 @@ Base: data/strategies_benchmark_report.json + data/historical/*.csv (BTC, ETH, S
 
 ## 1. Casos Win a reavaliar (toda a lista do benchmark 2024)
 De `data/strategies_benchmark_report.json` (não só os bons, todos com win_rate > 0):
-- Lead-Lag BTC->ETH (15m): 39 trades, 29W, +11,91%, PF 4,32, DD 1,6% — CENÁRIO BOM
-- Cash & Carry Funding BTC (8h): 366 trades, 366W, +24,57%, PF 99, DD 0 — BOM
-- Donchian Breakout BTC (1h): 124 trades, 51W, +42,35%, PF 1,39, DD 13,2% — MIXTO (DD alto)
-- RSI+Bollinger ADA (15m): 864 trades, 468W, +14,88%, PF 1,02, DD 129,9% — RUIM (DD absurdo)
-- RSI+Bollinger XRP (15m): 779 trades, 437W, +35,09%, PF 1,07, DD 103,3% — RUIM
-- Cointegração SOL/AVAX (1h): 271 trades, 149W, -19,28%, PF 0,93 — PERDA (não win, excluir)
-- ORB LINK (1h): 256 trades, 129W, -55,69% — PERDA
-- ORB BNB (1h): 255 trades, 127W, -27,33% — PERDA
+- Lead-Lag BTC->ETH (15m): 39 trades, 29W, +11,91%, PF 4,32, DD 1,6% : CENÁRIO BOM
+- Cash & Carry Funding BTC (8h): 366 trades, 366W, +24,57%, PF 99, DD 0 : BOM
+- Donchian Breakout BTC (1h): 124 trades, 51W, +42,35%, PF 1,39, DD 13,2% : MIXTO (DD alto)
+- RSI+Bollinger ADA (15m): 864 trades, 468W, +14,88%, PF 1,02, DD 129,9% : RUIM (DD absurdo)
+- RSI+Bollinger XRP (15m): 779 trades, 437W, +35,09%, PF 1,07, DD 103,3% : RUIM
+- Cointegração SOL/AVAX (1h): 271 trades, 149W, -19,28%, PF 0,93 : PERDA (não win, excluir)
+- ORB LINK (1h): 256 trades, 129W, -55,69% : PERDA
+- ORB BNB (1h): 255 trades, 127W, -27,33% : PERDA
 
 Objetivo: analisar os 29 wins do Lead-Lag + 51 wins Donchian + 468 wins RSI/ADA + 437 wins RSI/XRP, e buscar constantes de contexto (horário, vela, suporte, MM).
 
@@ -19,7 +19,7 @@ Objetivo: analisar os 29 wins do Lead-Lag + 51 wins Donchian + 468 wins RSI/ADA 
 Arquivo de dados: `data/historical/BTCUSDT_1h_2020_2024.csv` (e ETH, SOL, ADA, XRP, etc.)
 Campos: symbol, open_time (ms), open, high, low, close, volume, quote_volume, trades_count
 
-Fórmulas (Python/numpy — já em requirements.txt):
+Fórmulas (Python/numpy : já em requirements.txt):
 ```
 # Conversão de tempo
 hora_utc = pd.to_datetime(open_time, unit='ms').hour  # 0-23
@@ -40,7 +40,7 @@ shadow_total = shadow_upper + shadow_lower
 vol_media_20 = volume.rolling(window=20, min_periods=5).mean()
 vol_rel = volume / vol_media_20
 
-# Médias (20, 50, 200 barras — usar pandas no CSV)
+# Médias (20, 50, 200 barras : usar pandas no CSV)
 mm20 = close.rolling(window=20, min_periods=5).mean()
 mm50 = close.rolling(window=50, min_periods=10).mean()
 mm200 = close.rolling(window=200, min_periods=20).mean()

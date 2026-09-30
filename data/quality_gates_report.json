@@ -1,0 +1,64 @@
+{
+  "timestamp_utc": 1790757499890,
+  "total_gates": 9,
+  "passed_gates": 9,
+  "failed_gates": 0,
+  "all_passed": true,
+  "total_duration_sec": 13.82,
+  "results": [
+    {
+      "id": "GATE_0",
+      "name": "Limpeza do Repositorio",
+      "passed": true,
+      "duration_sec": 0.077
+    },
+    {
+      "id": "GATE_1",
+      "name": "Varredura de Segredos e Chaves",
+      "passed": true,
+      "duration_sec": 12.268
+    },
+    {
+      "id": "GATE_2",
+      "name": "Pinning de Dependencias",
+      "passed": true,
+      "duration_sec": 0.063
+    },
+    {
+      "id": "GATE_3",
+      "name": "Complexidade Ciclomatica (max 10)",
+      "passed": true,
+      "duration_sec": 0.637
+    },
+    {
+      "id": "GATE_4",
+      "name": "Estrutura Modular e Sem Ciclos",
+      "passed": true,
+      "duration_sec": 0.064
+    },
+    {
+      "id": "GATE_5",
+      "name": "Varredura SAST OWASP",
+      "passed": true,
+      "duration_sec": 0.216
+    },
+    {
+      "id": "GATE_6",
+      "name": "NLP: Sem Travessao e Gramatica pt-BR",
+      "passed": true,
+      "duration_sec": 0.085
+    },
+    {
+      "id": "GATE_7",
+      "name": "Invariantes Financeiros e Limites de Risco",
+      "passed": true,
+      "duration_sec": 0.069
+    },
+    {
+      "id": "GATE_8",
+      "name": "Evals Deterministicos de IA e Estrategias",
+      "passed": true,
+      "duration_sec": 0.341
+    }
+  ]
+}
